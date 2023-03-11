@@ -1,11 +1,23 @@
 const { Schema, model } = require("mongoose");
+let mapas = {
+  label: "Adicione um mapa",
+  description: "Novo mapa na lista",
+  value: "0"
+}
 
 const userset = new Schema({
   userID: { type: String },
 
   uid: { type: String, default: "Não definido" },
+  mapas: { type: Array, default: mapas },
+  mapas_embed: { type: Array },
   estrelas: { type: Number, default: 0 },
+  moedas: {
+    feijao: { type: Number, default: 0 },
+    moeda: { type: Number, default: 0 }
+  },
 
+  
   configuration: {
     dm: { type: Boolean, default: true }
   },
