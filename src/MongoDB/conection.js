@@ -1,0 +1,23 @@
+const { connect } = require("mongoose");
+const c = require("colors");
+
+module.exports = (client) => {
+
+const conectar = async() => {
+
+    await connect(client.config.mongo).then(() => {
+      console.log(c.blue("[INFO]: Ready MongoDB ✅"));
+    })
+};
+
+
+client.once("ready", () => {
+  conectar()
+})
+
+
+client.userdb = require("./Database/user.js");
+client.svdb = require("./Database/sv.js");
+client.msg = require("./Database/messages.js");
+  
+ }
