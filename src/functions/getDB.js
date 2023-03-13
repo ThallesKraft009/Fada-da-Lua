@@ -1,18 +1,18 @@
 const client = require("../bot.js");
 
-  client.db = async function(func) {
-    console.log(user.id);
-    
-    let userdb = await client.userdb.findOne({
-         userID: user.id
+async function db(author){
+  let mundodb = await client.mundodb.findOne({
+         userID: author.id
      })
       
-     if(!userdb){
-         const newuser = new client.userdb({ userID: user.id })
-         await newuser.save();
+     if(!mundodb){
+         const newworld = new client.mundodb({ userID: author.id })
+         await newworld.save();
          
-         userdb = await client.userdb.findOne({ userID: user.id })
-     }
+         mundodb = await client.mundodb.findOne({ userID: author.id })
+     };
 
-    func(userdb)
-  }
+     return mundodb;
+}
+
+module.exports = { db };

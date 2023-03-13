@@ -290,6 +290,7 @@ let valor_map = Number(`${valor}`);
 
       let h = msg_embed_mapa[l];
       console.log(h)
+      
 
       /*  let g = new EmbedBuilder()
           .setTitle(`${h.title}`)
@@ -298,10 +299,7 @@ let valor_map = Number(`${valor}`);
 */
            //    await i.deferUpdate()
 
-         
-
-
-         
+         let remove_map = {};
          
       await i.update({
         embeds: [h.data]

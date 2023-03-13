@@ -1,4 +1,5 @@
 const { Schema, model } = require("mongoose");
+
 let mapas = {
   label: "Adicione um mapa",
   description: "Novo mapa na lista",
@@ -12,12 +13,12 @@ const userset = new Schema({
   mapas: { type: Array, default: mapas },
   mapas_embed: { type: Array },
   estrelas: { type: Number, default: 0 },
+  
   moedas: {
     feijao: { type: Number, default: 0 },
     moeda: { type: Number, default: 0 }
   },
 
-  
   configuration: {
     dm: { type: Boolean, default: true }
   },
