@@ -2,6 +2,7 @@ const { Schema, model } = require("mongoose");
 
 const map = new Schema({
   userID: { type: String },
+  personagem: { type: String, default: "<:fluttershy:1085301921524502589>" },
   mundo: {
     users: { type: Array },
     nome: { type: String, default: null }

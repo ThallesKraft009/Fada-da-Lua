@@ -5,7 +5,7 @@ const { EmbedBuilder, ButtonStyle, ActionRowBuilder, ButtonBuilder } = require("
 const ms = require("ms");
 
 module.exports = class ColetarMadeira extends events {
-  constructor(client, message, isSlash){
+  constructor(client, message, isSlash, personagem){
 
     if (!message) return;
     if (!isSlash) isSlash = false;
@@ -25,6 +25,8 @@ module.exports = class ColetarMadeira extends events {
     this.author = author;
     
       this.db = db(author);
+
+  this.personagem = personagem;
     
    }
 
@@ -46,10 +48,10 @@ module.exports = class ColetarMadeira extends events {
 
     let MAPA_ = map;
 
-    const player = "🤨";
+    const player = `(PLAYER)`;
     const arvore = "🌲";
     let madeiras = 0;
-
+    
     let madeira_1 = Math.floor(Math.random() * 9);
     
 let madeira_1_i = Math.floor(Math.random() * 4);
@@ -80,7 +82,7 @@ let i = Math.floor(Math.random() * 4)
 
     //Cima: ⬆️. Baixo:. ⬇️ < ⬅️  > ➡️
 
-  let mapa = `${map[0].a}\n${map[1].a}\n${map[2].a}\n${map[3].a}\n${map[4].a}`;
+  let mapa = `${map[0].a}\n${map[1].a}\n${map[2].a}\n${map[3].a}\n${map[4].a}`.replace("(PLAYER)", this.personagem);
     
     const botoes = new ActionRowBuilder()
       .addComponents(
@@ -175,7 +177,7 @@ collector.on('collect', async interaction => {
     }
 
 
-      mapa = `${map[0].a}\n${map[1].a}\n${map[2].a}\n${map[3].a}\n${map[4].a}`;
+     mapa = `${map[0].a}\n${map[1].a}\n${map[2].a}\n${map[3].a}\n${map[4].a}`.replace("(PLAYER)", this.personagem);
 
     let embed_4 = new EmbedBuilder()
       .setAuthor({ name: `${this.author.tag}`, iconURL: `${this.author.displayAvatarURL()}` })
@@ -211,8 +213,7 @@ collector.on('collect', async interaction => {
     
      }
 
-mapa = `${map[0].a}\n${map[1].a}\n${map[2].a}\n${map[3].a}\n${map[4].a}`;
-
+mapa = `${map[0].a}\n${map[1].a}\n${map[2].a}\n${map[3].a}\n${map[4].a}`.replace("(PLAYER)", this.personagem);
 
        let embed_4 = new EmbedBuilder()
     .setAuthor({ name: `${this.author.tag}`, iconURL: `${this.author.displayAvatarURL()}` })
@@ -281,7 +282,7 @@ mapa = `${map[0].a}\n${map[1].a}\n${map[2].a}\n${map[3].a}\n${map[4].a}`;
     }
 
 
-      mapa = `${map[0].a}\n${map[1].a}\n${map[2].a}\n${map[3].a}\n${map[4].a}`;
+      mapa = `${map[0].a}\n${map[1].a}\n${map[2].a}\n${map[3].a}\n${map[4].a}`.replace("(PLAYER)", this.personagem);
 
     let embed_4 = new EmbedBuilder()
     .setAuthor({ name: `${this.author.tag}`, iconURL: `${this.author.displayAvatarURL()}` })
@@ -318,7 +319,7 @@ for (let b = 0; b < 10; b++){
       }
 
 
-    mapa = `${map[0].a}\n${map[1].a}\n${map[2].a}\n${map[3].a}\n${map[4].a}`;
+mapa = `${map[0].a}\n${map[1].a}\n${map[2].a}\n${map[3].a}\n${map[4].a}`.replace("(PLAYER)", this.personagem);;
 
     let embed_3 = new EmbedBuilder()
 .setAuthor({ name: `${this.author.tag}`, iconURL: `${this.author.displayAvatarURL()}` })
@@ -388,8 +389,8 @@ for (let b = 0; b < 10; b++){
     }
 
 
-      mapa = `${map[0].a}\n${map[1].a}\n${map[2].a}\n${map[3].a}\n${map[4].a}`;
-
+      mapa = `${map[0].a}\n${map[1].a}\n${map[2].a}\n${map[3].a}\n${map[4].a}`.replace("(PLAYER)", this.personagem);
+      
     let embed_4 = new EmbedBuilder()
     .setAuthor({ name: `${this.author.tag}`, iconURL: `${this.author.displayAvatarURL()}` })
       .setDescription(`Madeiras Coletadas: ${madeiras}\n\n${mapa}`)
@@ -422,7 +423,7 @@ for (let b = 0; b < 10; b++){
     
       }
 
-mapa = `${map[0].a}\n${map[1].a}\n${map[2].a}\n${map[3].a}\n${map[4].a}`;
+mapa = `${map[0].a}\n${map[1].a}\n${map[2].a}\n${map[3].a}\n${map[4].a}`.replace("(PLAYER)", this.personagem);
 
     let embed_2 = new EmbedBuilder()
     .setAuthor({ name: `${this.author.tag}`, iconURL: `${this.author.displayAvatarURL()}` })
@@ -490,7 +491,7 @@ mapa = `${map[0].a}\n${map[1].a}\n${map[2].a}\n${map[3].a}\n${map[4].a}`;
     }
 
 
-      mapa = `${map[0].a}\n${map[1].a}\n${map[2].a}\n${map[3].a}\n${map[4].a}`;
+      mapa = `${map[0].a}\n${map[1].a}\n${map[2].a}\n${map[3].a}\n${map[4].a}`.replace("(PLAYER)", this.personagem);
 
     let embed_4 = new EmbedBuilder()
     .setAuthor({ name: `${this.author.tag}`, iconURL: `${this.author.displayAvatarURL()}` })
@@ -524,7 +525,7 @@ mapa = `${map[0].a}\n${map[1].a}\n${map[2].a}\n${map[3].a}\n${map[4].a}`;
     
       }
 
-mapa = `${map[0].a}\n${map[1].a}\n${map[2].a}\n${map[3].a}\n${map[4].a}`;
+mapa = `${map[0].a}\n${map[1].a}\n${map[2].a}\n${map[3].a}\n${map[4].a}`.replace("(PLAYER)", this.personagem);
 
 
        let embed_1 = new EmbedBuilder()

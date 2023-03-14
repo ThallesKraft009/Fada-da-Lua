@@ -22,7 +22,7 @@ module.exports = {
         content: "Você ainda não criou seu mundo, utilize o comando **\`mw!criar-mundo\`**!"
       })
 
-    const Game = new ColetarMadeira(client, message, false);
+    const Game = new ColetarMadeira(client, message, false, mundodb.personagem);
 
      Game.on(async(madeiras) => {
 

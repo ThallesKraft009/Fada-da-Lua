@@ -40,7 +40,7 @@ let cmd = interaction.options.getSubcommand();
         ephemeral: true
       })
 
-    const Game = new ColetarMadeira(client, interaction, true);
+    const Game = new ColetarMadeira(client, interaction, true, mundodb.personagem);
 
      Game.on(async(madeiras) => {
 
