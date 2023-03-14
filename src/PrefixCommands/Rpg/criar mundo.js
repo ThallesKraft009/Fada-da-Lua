@@ -27,17 +27,24 @@ module.exports = {
 
       let users = [];
        users.push(author);
+       
 
          await client.mundodb.updateOne({
          userID: author.id
      }, { $set: {
-         "mundo.nome": nome,
+         "mundo.nome": name,
          "mundo.users": users
      }
      })
+
+       message.reply({
+         content: "O mundo foi criado!"
+       })
        
      } else {
-       
+       message.reply({
+         content: "Você já criou um mundo!"
+       })
      }
   }
 }

@@ -10,7 +10,7 @@ client.on("ready", async () => {
   const activities = [
 	{ name: `Mini world`, type: 0 }, 
 ];
-
+  
 
 const status = [
 	'dnd',
