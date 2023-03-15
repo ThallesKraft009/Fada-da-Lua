@@ -1,7 +1,7 @@
 const Rpg = require("../../Utils/Rpg.js");
 
 module.exports = {
-  name: "coletar-madeira",
+  name: "coletar-rochas",
 
   run: async(client, message, args) => {
 
@@ -22,19 +22,19 @@ module.exports = {
         content: "Você ainda não criou seu mundo, utilize o comando **\`mw!criar-mundo\`**!"
       })
 
-    const Game = new Rpg(client, message, false, mundodb.personagem);
 
-     Game.coletarMadeira(async(madeiras) => {
+const Game = new Rpg(client, message, false, mundodb.personagem);
+
+     Game.coletarRochas(async(i) => {
 
 await client.mundodb.updateOne({
          userID: author.id
      }, { $set: {
-         "blocos.madeira": mundodb.blocos.madeira + 1
+         "blocos.pedra": mundodb.blocos.pedra + 1
      }
      })
        
     });
-
     
   }
 }

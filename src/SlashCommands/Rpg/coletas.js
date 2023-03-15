@@ -1,4 +1,4 @@
-const ColetarMadeira = require("../../Utils/Coletarmadeira.js");
+const Rpg = require("../../Utils/Rpg.js");
 
 module.exports = {
   name: "coletar",
@@ -9,6 +9,10 @@ module.exports = {
     {
       name: "madeira",
       description: "Colete madeiras no seu mundo",
+      type: 1
+    },{
+      name: "rochas",
+      description: "Colete Rochas no seu mundo",
       type: 1
     }
   ],
@@ -30,19 +34,25 @@ module.exports = {
     
 let cmd = interaction.options.getSubcommand();
 
-    /*=========== MADEIRA =========*/
 
-    if (cmd === "madeira"){
 
-    
-      if (mundodb.mundo.nome === null) return interaction.reply({
+    if (mundodb.mundo.nome === null) return interaction.reply({
         content: "Você ainda não criou seu mundo, utilize o comando **\`/criar mundo\`**!",
         ephemeral: true
       })
 
-    const Game = new ColetarMadeira(client, interaction, true, mundodb.personagem);
+    
 
-     Game.on(async(madeiras) => {
+    const Game = new Rpg(client, interaction, true, mundodb.personagem);
+
+    
+
+
+    /*=========== MADEIRA =========*/
+
+    if (cmd === "madeira"){
+    
+     Game.coletarMadeira(async(madeiras) => {
 
 await client.mundodb.updateOne({
          userID: user.id
@@ -53,6 +63,20 @@ await client.mundodb.updateOne({
        
     });
     }
-    
+
+    /*====== PEDRA ========*/
+
+    if (cmd === "rochas"){
+    Game.coletarRochas(async(i) => {
+
+await client.mundodb.updateOne({
+         userID: user.id
+     }, { $set: {
+         "blocos.pedra": mundodb.blocos.pedra + 1
+     }
+     })
+       
+    });
+    }
   }
 }

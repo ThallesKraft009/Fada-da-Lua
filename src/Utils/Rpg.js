@@ -4,7 +4,7 @@ const events = require('events');
 const { EmbedBuilder, ButtonStyle, ActionRowBuilder, ButtonBuilder } = require("discord.js");
 const ms = require("ms");
 
-module.exports = class ColetarMadeira extends events {
+module.exports = class Rpg extends events {
   constructor(client, message, isSlash, personagem){
 
     if (!message) return;
@@ -24,13 +24,197 @@ module.exports = class ColetarMadeira extends events {
 
     this.author = author;
     
-      this.db = db(author);
+      
 
   this.personagem = personagem;
     
    }
 
-  on(func){
+   coletarRochas(func) {
+
+    let i = 0;
+
+     let botao = new ActionRowBuilder()
+        .addComponents(
+          new ButtonBuilder()
+        .setEmoji("⬅️")
+        .setCustomId("rochas_<")
+        .setStyle(ButtonStyle.Primary),
+          new ButtonBuilder()
+        .setEmoji("➡️")
+        .setCustomId("rochas_>")
+        .setStyle(ButtonStyle.Primary)
+        );
+
+     let mapa = `0123456789`;
+     let player = "(PLAYER)";
+     let rocha = "⛰️";
+     let fundo = "⬛";
+
+    let local = Math.floor(Math.random() * 9)
+    let verificando;
+    let blocos = 0;
+     if (local === 0) local = 9;
+
+    mapa = mapa.replace(local, rocha);
+    mapa = mapa.replace(i, player);
+
+     for (let a = 0; a < 10; a++){
+
+       mapa = mapa.replace(a, fundo)
+
+       continue;
+     }
+
+     mapa = mapa.replace(player, this.personagem);
+
+let EMBED_ROCHAS = new EmbedBuilder()
+     .setAuthor({ name: `${this.author.tag}`, iconURL: `${this.author.displayAvatarURL()}`})
+     .setDescription(`Rochas: ${blocos}\n${mapa}`)
+     .setColor("Green")
+
+     //EMBED_ROCHAS.setDescription(`Rochas: ${blocos}\n${mapa}`)
+    this.message.reply({
+      embeds: [EMBED_ROCHAS],
+      components: [botao]
+    });
+
+     let collector_b = this.message.channel.createMessageComponentCollector({ time: ms("1h") });
+
+collector_b.on("collect", async(interaction) => {
+
+  if (interaction.customId === "rochas_>"){
+
+    mapa = `0123456789`;
+
+    await interaction.deferUpdate()
+
+    i = i + 1;
+      if (i === 10) i = 0;
+
+
+        if (i === local){
+
+      mapa = mapa.replace(local, player);
+
+      blocos = blocos + 1;
+
+      local = Math.floor(Math.random() * 9);
+
+      mapa = mapa.replace(local, rocha);
+
+      for (let g = 0; g < 10; g++){
+        mapa = mapa.replace(g, fundo);
+
+        continue;
+      }
+
+    mapa = mapa.replace(player, this.personagem);
+
+func(blocos)
+        let EMBED_ROCHAS_1_ = new EmbedBuilder()
+     .setAuthor({ name: `${this.author.tag}`, iconURL: `${this.author.displayAvatarURL()}`})
+     .setDescription(`Rochas: ${blocos}\n\n${mapa}`)
+     .setColor("Green")
+
+
+
+  interaction.editReply({
+      embeds: [EMBED_ROCHAS_1_]
+    });
+        } else {
+
+    mapa = mapa.replace(i, player)
+    mapa = mapa.replace(local, rocha);
+
+    for (let b = 0; b < 10; b++){
+      mapa = mapa.replace(b, fundo);
+
+       continue;
+   }
+    mapa = mapa.replace(player, this.personagem)
+
+
+                           let EMBED_ROCHAS_1 = new EmbedBuilder()
+     .setAuthor({ name: `${this.author.tag}`, iconURL: `${this.author.displayAvatarURL()}`})
+     .setDescription(`Rochas: ${blocos}\n\n${mapa}`)
+     .setColor("Green")
+
+    interaction.editReply({
+      embeds: [EMBED_ROCHAS_1]
+    });
+        }
+    
+  }
+
+
+      if (interaction.customId === "rochas_<"){
+
+        await interaction.deferUpdate()
+
+    mapa = `0123456789`;
+
+    i = i - 1;
+      if (i === -1) i = 9;
+
+    if (i === local){
+
+      mapa = mapa.replace(local, player);
+
+      blocos = blocos + 1;
+
+      local = Math.floor(Math.random() * 9);
+
+      mapa = mapa.replace(local, rocha);
+
+      for (let g = 0; g < 10; g++){
+        mapa = mapa.replace(g, fundo);
+
+        continue;
+      }
+
+    mapa = mapa.replace(player, this.personagem);
+
+      func(blocos)
+
+
+      let EMBED_ROCHAS_2_ = new EmbedBuilder()
+     .setAuthor({ name: `${this.author.tag}`, iconURL: `${this.author.displayAvatarURL()}`})
+     .setDescription(`Rochas: ${blocos}\n\n${mapa}`)
+     .setColor("Green")
+      
+  interaction.editReply({
+      embeds: [EMBED_ROCHAS_2_]
+    });
+      
+    } else {
+
+    mapa = mapa.replace(i, player)
+    mapa = mapa.replace(local, rocha);
+
+    for (let b = 0; b < 10; b++){
+      mapa = mapa.replace(b, fundo);
+
+       continue;
+   }
+    mapa = mapa.replace(player, this.personagem)
+
+
+let EMBED_ROCHAS_2 = new EmbedBuilder()
+     .setAuthor({ name: `${this.author.tag}`, iconURL: `${this.author.displayAvatarURL()}`})
+     .setDescription(`Rochas: ${blocos}\n\n${mapa}`)
+     .setColor("Green")
+
+    interaction.editReply({
+      embeds: [EMBED_ROCHAS_2]
+    });
+      }
+  }
+})
+    
+  }
+
+  coletarMadeira(func){
 
     let map = [
   {
@@ -124,6 +308,13 @@ let i = Math.floor(Math.random() * 4)
 collector.on('collect', async interaction => {
 
   await interaction.deferUpdate();
+
+  if (interaction.user.id !== this.author.id){
+    interaction.followUp({
+      content: `Espera um minuto... você não é ${interacion.user}! Sai daqui!`,
+      ephemeral: tfue
+    })
+  }
 
   if (interaction.customId === "madeira_>"){
 

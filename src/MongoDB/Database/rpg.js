@@ -9,7 +9,8 @@ const map = new Schema({
   },
 
   blocos: {
-    madeira: { type: Number, default: 0 }
+    madeira: { type: Number, default: 0 },
+    pedra: { type: Number, default: 0 }
   }
   
 })
