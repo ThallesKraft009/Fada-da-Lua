@@ -3,6 +3,7 @@ const { numberRandom } = require("../functions/numberRandom.js");
 const events = require('events');
 const { EmbedBuilder, ButtonStyle, ActionRowBuilder, ButtonBuilder } = require("discord.js");
 const ms = require("ms");
+const ITEM = require("../Json/itens.js");
 
 module.exports = class Rpg extends events {
   constructor(client, message, isSlash, personagem){
@@ -30,6 +31,78 @@ module.exports = class Rpg extends events {
     
    }
 
+
+
+  criarItens(userdb, func){
+
+    let item_id = {};
+
+    item_id.graveto = 1;
+    item_id.tocha = 2;
+    
+    let botoes = new ActionRowBuilder()
+        .addComponents(
+          new ButtonBuilder()
+        .setLabel("Graveto")
+        .setCustomId("criar_graveto")
+        .setStyle(ButtonStyle.Primary),
+          new ButtonBuilder()
+        .setLabel("Tocha")
+        .setCustomId("criar_tocha")
+        .setStyle(ButtonStyle.Primary)
+        );
+
+  this.message.reply({
+    content: `${this.personagem} como eu faço isso mds`,
+    components: [botoes]
+  })
+
+  
+let collector_b = this.message.channel.createMessageComponentCollector({ time: ms("1h") });
+
+collector_b.on("collect", async(interaction) => {
+
+   if (interaction.customId === "criar_graveto"){
+
+
+     await interaction.deferUpdate()
+
+     interaction.followUp({
+       content: `${this.personagem} | Envie a quantidade de gravetos que você quer criar`,
+       ephemeral: true
+     })
+
+     let collector_msg_1 = interaction.channel.createMessageCollector({ time: ms("1m") });
+
+     collector_msg_1.on("collect", async(m) => {
+
+  
+
+       let gravetos = m.content;
+
+            gravetos = Number(`${gravetos}`);
+
+       if (!gravetos) {
+         m.delete();
+         
+         await collector_msg_1.stop();
+       } else {
+
+         this.message.channel.send({
+           content: `ITEM_ID: ${ITEM.graveto}, quantidade: ${gravetos}`
+         });
+         
+       
+       await collector_msg_1.stop()
+       }
+     })
+   }
+  
+})
+    
+
+  }
+
    coletarRochas(func) {
 
     let i = 0;
@@ -51,22 +124,35 @@ module.exports = class Rpg extends events {
      let rocha = "⛰️";
      let fundo = "⬛";
 
+
+          
+
     let local = Math.floor(Math.random() * 9)
     let verificando;
     let blocos = 0;
      if (local === 0) local = 9;
 
     mapa = mapa.replace(local, rocha);
+
+     
+
+     
     mapa = mapa.replace(i, player);
+
+
 
      for (let a = 0; a < 10; a++){
 
        mapa = mapa.replace(a, fundo)
 
+       
+
        continue;
      }
 
      mapa = mapa.replace(player, this.personagem);
+
+     
 
 let EMBED_ROCHAS = new EmbedBuilder()
      .setAuthor({ name: `${this.author.tag}`, iconURL: `${this.author.displayAvatarURL()}`})
@@ -83,11 +169,18 @@ let EMBED_ROCHAS = new EmbedBuilder()
 
 collector_b.on("collect", async(interaction) => {
 
+  await interaction.deferUpdate();
+
+if (interaction.user.id !== this.author.id) return interaction.followUp({
+      content: `Espera um minuto... você não é ${this.author}! Sai daqui!`,
+      ephemeral: true
+    })
+
   if (interaction.customId === "rochas_>"){
 
     mapa = `0123456789`;
 
-    await interaction.deferUpdate()
+
 
     i = i + 1;
       if (i === 10) i = 0;
@@ -150,7 +243,7 @@ func(blocos)
 
       if (interaction.customId === "rochas_<"){
 
-        await interaction.deferUpdate()
+
 
     mapa = `0123456789`;
 
@@ -309,12 +402,11 @@ collector.on('collect', async interaction => {
 
   await interaction.deferUpdate();
 
-  if (interaction.user.id !== this.author.id){
-    interaction.followUp({
-      content: `Espera um minuto... você não é ${interacion.user}! Sai daqui!`,
-      ephemeral: tfue
+  if (interaction.user.id !== this.author.id) return interaction.followUp({
+      content: `Espera um minuto... você não é ${this.author}! Sai daqui!`,
+      ephemeral: true
     })
-  }
+  
 
   if (interaction.customId === "madeira_>"){
 
