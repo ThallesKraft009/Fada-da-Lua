@@ -55,7 +55,19 @@ description_localizations: slashCommand.description_localizations,
 				await rest.put(
 					Routes.applicationCommands(CLIENT_ID), 
 					{ body: slashCommands }
-      )
+      ).then(lista_cmd => {
+
+let jsonData = fs.readFileSync('src/Json/commands.json');
+
+let dados = JSON.parse(jsonData);
+
+          dados = lista_cmd;
+
+let novoJsonData = JSON.stringify(dados);
+
+fs.writeFileSync('src/Json/commands.json', novoJsonData);
+
+      })
 				console.log(chalk.yellow('Slash Commands registrados!'))
 			} catch (a){
     console.log(a)
