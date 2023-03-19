@@ -11,6 +11,7 @@ module.exports = {
   ],
   run: async(client, interaction) => {
     let cmd = interaction.options.getSubcommand();
+    console.log(interaction.options)
     let { guild, user } = interaction;
 
     if (cmd === "sonora"){

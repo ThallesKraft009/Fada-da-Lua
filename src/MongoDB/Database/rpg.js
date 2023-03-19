@@ -11,6 +11,14 @@ const map = new Schema({
   blocos: {
     madeira: { type: Number, default: 0 },
     pedra: { type: Number, default: 0 }
+  },
+
+  item: {
+    gravetos: { type: Number, default: 0 }
+  },
+
+  picaretas: {
+    pedra: { type: Number, default: 0 }
   }
   
 })

@@ -1,92 +1,13 @@
-{
-  "dados": [
-    {
-      "pergunta": "como jogar no rpg",
-      "resposta": {
-        "title": "Como jogar no Rpg",
-        "description": "O rpg é uma recriação de um suvival do MiniWorld.\nOs comandos do rpg estão disponíveis em slashCommands e PrefixCommands",
-        "color": 3447003
-      }
-    },
-    {
-      "pergunta": "como usar o rpg",
-      "resposta": {
-        "title": "Como jogar no Rpg",
-        "description": "O rpg é uma recriação de um suvival do MiniWorld.\nOs comandos do rpg estão disponíveis em slashCommands e PrefixCommands",
-        "color": 3447003
-      }
-    },
-    {
-      "pergunta": "tutorial do rpg",
-      "resposta": {
-        "title": "Como jogar no Rpg",
-        "description": "O rpg é uma recriação de um suvival do MiniWorld.\nOs comandos do rpg estão disponíveis em slashCommands e PrefixCommands",
-        "color": 3447003
-      }
-    },
-    {
-      "pergunta": "quero aprender a jogar rpg",
-      "resposta": {
-        "title": "Como jogar no Rpg",
-        "description": "O rpg é uma recriação de um suvival do MiniWorld.\nOs comandos do rpg estão disponíveis em slashCommands e PrefixCommands",
-        "color": 3447003
-      }
-    },
-    {
-      "pergunta": "como funciona o rpg",
-      "resposta": {
-        "title": "Como jogar no Rpg",
-        "description": "O rpg é uma recriação de um suvival do MiniWorld.\nOs comandos do rpg estão disponíveis em slashCommands e PrefixCommands",
-        "color": 3447003
-      }
-    },
-    {
-      "pergunta": "como jogar o rpg",
-      "resposta": {
-        "title": "Como jogar no Rpg",
-        "description": "O rpg é uma recriação de um suvival do MiniWorld.\nOs comandos do rpg estão disponíveis em slashCommands e PrefixCommands",
-        "color": 3447003
-      }
-    },
-    {
-      "pergunta": "como salvar o uid",
-      "resposta": {
-        "title": "Como funciona os UIDs na Fada?",
-        "description": "Os uids salvos são utilizados como meio de informação sobre o membro aqui no discord.\nCaso algum novo membro queira queree saber seu uid, ele pode utilizar um comando pra buscar o uid do membro e vendo o uid se ele salvou ou não.",
-        "color": 3447003
-      }
-    },
-    {
-      "pergunta": "como buscar um uid",
-      "resposta": {
-        "title": "Como funciona os UIDs na Fada?",
-        "description": "Os uids salvos são utilizados como meio de informação sobre o membro aqui no discord.\nCaso algum novo membro queira queree saber seu uid, ele pode utilizar um comando pra buscar o uid do membro e vendo o uid se ele salvou ou não.",
-        "color": 3447003
-      }
-    },
-    {
-      "pergunta": "uid",
-      "resposta": {
-        "title": "Como funciona os UIDs na Fada?",
-        "description": "Os uids salvos são utilizados como meio de informação sobre o membro aqui no discord.\nCaso algum novo membro queira queree saber seu uid, ele pode utilizar um comando pra buscar o uid do membro e vendo o uid se ele salvou ou não.",
-        "color": 3447003
-      }
-    },
-    {
-      "pergunta": "buscar uid",
-      "resposta": {
-        "title": "Como funciona os UIDs na Fada?",
-        "description": "Os uids salvos são utilizados como meio de informação sobre o membro aqui no discord.\nCaso algum novo membro queira queree saber seu uid, ele pode utilizar um comando pra buscar o uid do membro e vendo o uid se ele salvou ou não.",
-        "color": 3447003
-      }
-    },
-    {
-      "pergunta": "salvar o uid",
-      "resposta": {
-        "title": "Como funciona os UIDs na Fada?",
-        "description": "Os uids salvos são utilizados como meio de informação sobre o membro aqui no discord.\nCaso algum novo membro queira queree saber seu uid, ele pode utilizar um comando pra buscar o uid do membro e vendo o uid se ele salvou ou não.",
-        "color": 3447003
-      }
-    }
-  ]
-}
+[{
+  "pergunta": "pudim", 
+  "resposta": "🍮 é bom"
+},{
+  "pergunta": "", 
+  "resposta": ""
+},{
+  "pergunta": "",
+  "resposta": ""
+},{
+  "pergunta": "",
+  "resposta": ""
+}]

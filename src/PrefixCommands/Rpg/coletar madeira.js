@@ -24,15 +24,19 @@ module.exports = {
 
     const Game = new Rpg(client, message, false, mundodb.personagem);
 
-     Game.coletarMadeira(async(madeiras) => {
+     Game.coletarMadeira(mundodb.blocos.madeira, async(madeiras) => {
 
-await client.mundodb.updateOne({
+       mundodb.blocos.madeira = mundodb.blocos.madeira + 1;
+
+           console.log("ganhou mais uma madeira! ", mundodb.blocos.madeira)
+
+       await client.mundodb.updateOne({
          userID: author.id
      }, { $set: {
-         "blocos.madeira": mundodb.blocos.madeira + 1
+         "blocos.madeira": mundodb.blocos.madeira
      }
      })
-       
+
     });
 
     

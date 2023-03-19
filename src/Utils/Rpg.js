@@ -31,78 +31,6 @@ module.exports = class Rpg extends events {
     
    }
 
-
-
-  criarItens(userdb, func){
-
-    let item_id = {};
-
-    item_id.graveto = 1;
-    item_id.tocha = 2;
-    
-    let botoes = new ActionRowBuilder()
-        .addComponents(
-          new ButtonBuilder()
-        .setLabel("Graveto")
-        .setCustomId("criar_graveto")
-        .setStyle(ButtonStyle.Primary),
-          new ButtonBuilder()
-        .setLabel("Tocha")
-        .setCustomId("criar_tocha")
-        .setStyle(ButtonStyle.Primary)
-        );
-
-  this.message.reply({
-    content: `${this.personagem} como eu faço isso mds`,
-    components: [botoes]
-  })
-
-  
-let collector_b = this.message.channel.createMessageComponentCollector({ time: ms("1h") });
-
-collector_b.on("collect", async(interaction) => {
-
-   if (interaction.customId === "criar_graveto"){
-
-
-     await interaction.deferUpdate()
-
-     interaction.followUp({
-       content: `${this.personagem} | Envie a quantidade de gravetos que você quer criar`,
-       ephemeral: true
-     })
-
-     let collector_msg_1 = interaction.channel.createMessageCollector({ time: ms("1m") });
-
-     collector_msg_1.on("collect", async(m) => {
-
-  
-
-       let gravetos = m.content;
-
-            gravetos = Number(`${gravetos}`);
-
-       if (!gravetos) {
-         m.delete();
-         
-         await collector_msg_1.stop();
-       } else {
-
-         this.message.channel.send({
-           content: `ITEM_ID: ${ITEM.graveto}, quantidade: ${gravetos}`
-         });
-         
-       
-       await collector_msg_1.stop()
-       }
-     })
-   }
-  
-})
-    
-
-  }
-
    coletarRochas(func) {
 
     let i = 0;
@@ -169,7 +97,7 @@ let EMBED_ROCHAS = new EmbedBuilder()
 
 collector_b.on("collect", async(interaction) => {
 
-  await interaction.deferUpdate();
+  
 
 if (interaction.user.id !== this.author.id) return interaction.followUp({
       content: `Espera um minuto... você não é ${this.author}! Sai daqui!`,
@@ -177,7 +105,9 @@ if (interaction.user.id !== this.author.id) return interaction.followUp({
     })
 
   if (interaction.customId === "rochas_>"){
+await interaction.deferUpdate();
 
+    
     mapa = `0123456789`;
 
 
@@ -242,8 +172,7 @@ func(blocos)
 
 
       if (interaction.customId === "rochas_<"){
-
-
+await interaction.deferUpdate();
 
     mapa = `0123456789`;
 
@@ -307,7 +236,7 @@ let EMBED_ROCHAS_2 = new EmbedBuilder()
     
   }
 
-  coletarMadeira(func){
+  coletarMadeira(mundodb, func){
 
     let map = [
   {
@@ -345,7 +274,7 @@ let i = Math.floor(Math.random() * 4)
 
   for (let b = 0; b < 10; b++){
 
-    console.log(b)
+    
 
     map[0].a = map[0].a.replace(b, emoji_mapa)
     map[1].a = map[1].a.replace(b, emoji_mapa)
@@ -400,7 +329,7 @@ let i = Math.floor(Math.random() * 4)
 
 collector.on('collect', async interaction => {
 
-  await interaction.deferUpdate();
+
 
   if (interaction.user.id !== this.author.id) return interaction.followUp({
       content: `Espera um minuto... você não é ${this.author}! Sai daqui!`,
@@ -409,7 +338,7 @@ collector.on('collect', async interaction => {
   
 
   if (interaction.customId === "madeira_>"){
-
+  await interaction.deferUpdate();
     p = p + 1;
 
        if (p === 10) p = 0;
@@ -435,6 +364,9 @@ collector.on('collect', async interaction => {
       madeiras = madeiras + 1;
 
         func(madeiras)
+
+    
+       
 
     map[madeira_1_i].a = map[madeira_1_i].a.replace(p - 1, emoji_mapa)
       
@@ -513,7 +445,7 @@ mapa = `${map[0].a}\n${map[1].a}\n${map[2].a}\n${map[3].a}\n${map[4].a}`.replace
   
 
   if (interaction.customId === "madeira_baixo"){
-
+  await interaction.deferUpdate();
     map = [
   {
     a: "0123456789"
@@ -540,6 +472,8 @@ mapa = `${map[0].a}\n${map[1].a}\n${map[2].a}\n${map[3].a}\n${map[4].a}`.replace
       madeiras = madeiras + 1;
 
         func(madeiras)
+
+      
 
     map[madeira_1_i].a = map[madeira_1_i].a.replace(i_, emoji_mapa)
       
@@ -618,6 +552,7 @@ mapa = `${map[0].a}\n${map[1].a}\n${map[2].a}\n${map[3].a}\n${map[4].a}`.replace
   }
 
   if (interaction.customId === "madeira_cima"){
+      await interaction.deferUpdate();
     map = [
   {
     a: "0123456789"
@@ -647,6 +582,8 @@ mapa = `${map[0].a}\n${map[1].a}\n${map[2].a}\n${map[3].a}\n${map[4].a}`.replace
       madeiras = madeiras + 1;
 
         func(madeiras)
+
+      
 
     map[madeira_1_i].a = map[madeira_1_i].a.replace(i_, emoji_mapa)
       
@@ -724,7 +661,7 @@ mapa = `${map[0].a}\n${map[1].a}\n${map[2].a}\n${map[3].a}\n${map[4].a}`.replace
   }
 
    if (interaction.customId === "madeira_<"){
-
+  await interaction.deferUpdate();
      p = p - 1;
 
        if (p < 0) p = 9;
@@ -749,6 +686,8 @@ mapa = `${map[0].a}\n${map[1].a}\n${map[2].a}\n${map[3].a}\n${map[4].a}`.replace
       madeiras = madeiras + 1;
 
         func(madeiras)
+
+      
 
     map[madeira_1_i].a = map[madeira_1_i].a.replace(p + 1, emoji_mapa)
       

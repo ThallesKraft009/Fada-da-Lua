@@ -27,10 +27,12 @@ const Game = new Rpg(client, message, false, mundodb.personagem);
 
      Game.coletarRochas(async(i) => {
 
+       mundodb.blocos.pedra = mundodb.blocos.pedra + 1;
+
 await client.mundodb.updateOne({
          userID: author.id
      }, { $set: {
-         "blocos.pedra": mundodb.blocos.pedra + 1
+         "blocos.pedra": mundodb.blocos.pedra
      }
      })
        
