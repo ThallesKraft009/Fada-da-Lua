@@ -24,7 +24,7 @@ module.exports = {
 
     const Game = new Rpg(client, message, false, mundodb.personagem);
 
-     Game.coletarMadeira(mundodb.blocos.madeira, async(madeiras) => {
+     Game.coletarMadeira(async(madeiras) => {
 
        mundodb.blocos.madeira = mundodb.blocos.madeira + 1;
 

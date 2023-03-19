@@ -13,6 +13,14 @@ const userset = new Schema({
   mapas: { type: Array, default: mapas },
   mapas_embed: { type: Array },
   estrelas: { type: Number, default: 0 },
+
+  pascoa: {
+    ovo_azul: { type: Number, default: 0 },
+    ovo_vermelho: { type: Number, default: 0 },
+    ovo_verde: { type: Number, default: 0 },
+    ovo_dourado: { type: Number, default: 0 },
+    pontos: { type: Number, default: 0 }
+  },
   
   moedas: {
     feijao: { type: Number, default: 0 },

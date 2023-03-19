@@ -20,5 +20,6 @@ client.userdb = require("./Database/user.js");
 client.svdb = require("./Database/sv.js");
 client.msg = require("./Database/messages.js");
 client.mundodb = require("./Database/rpg.js");
+client.pascoa_db = require("./Database/evento.js");
  
  }

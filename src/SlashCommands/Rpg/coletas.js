@@ -54,10 +54,12 @@ let cmd = interaction.options.getSubcommand();
     
      Game.coletarMadeira(async(madeiras) => {
 
+             mundodb.blocos.madeira = mundodb.blocos.madeira + 1;
+
 await client.mundodb.updateOne({
          userID: user.id
      }, { $set: {
-         "blocos.madeira": mundodb.blocos.madeira + 1
+         "blocos.madeira": mundodb.blocos.madeira
      }
      })
        

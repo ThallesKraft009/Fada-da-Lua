@@ -97,16 +97,15 @@ let EMBED_ROCHAS = new EmbedBuilder()
 
 collector_b.on("collect", async(interaction) => {
 
-  
 
-if (interaction.user.id !== this.author.id) return interaction.followUp({
-      content: `Espera um minuto... você não é ${this.author}! Sai daqui!`,
-      ephemeral: true
-    })
 
   if (interaction.customId === "rochas_>"){
 await interaction.deferUpdate();
 
+    if (interaction.user.id !== this.author.id) return interaction.followUp({
+      content: `Espera um minuto... você não é ${this.author}! Sai daqui!`,
+      ephemeral: true
+    })
     
     mapa = `0123456789`;
 
@@ -174,6 +173,11 @@ func(blocos)
       if (interaction.customId === "rochas_<"){
 await interaction.deferUpdate();
 
+        if (interaction.user.id !== this.author.id) return interaction.followUp({
+      content: `Espera um minuto... você não é ${this.author}! Sai daqui!`,
+      ephemeral: true
+    })
+        
     mapa = `0123456789`;
 
     i = i - 1;
@@ -236,7 +240,7 @@ let EMBED_ROCHAS_2 = new EmbedBuilder()
     
   }
 
-  coletarMadeira(mundodb, func){
+  coletarMadeira(func){
 
     let map = [
   {
@@ -328,17 +332,16 @@ let i = Math.floor(Math.random() * 4)
     const collector = this.message.channel.createMessageComponentCollector({ time: ms("1h") });
 
 collector.on('collect', async interaction => {
-
-
-
-  if (interaction.user.id !== this.author.id) return interaction.followUp({
-      content: `Espera um minuto... você não é ${this.author}! Sai daqui!`,
-      ephemeral: true
-    })
   
 
   if (interaction.customId === "madeira_>"){
   await interaction.deferUpdate();
+
+    if (interaction.user.id !== this.author.id) return interaction.followUp({
+      content: `Espera um minuto... você não é ${this.author}! Sai daqui!`,
+      ephemeral: true
+    })
+
     p = p + 1;
 
        if (p === 10) p = 0;
@@ -553,6 +556,12 @@ mapa = `${map[0].a}\n${map[1].a}\n${map[2].a}\n${map[3].a}\n${map[4].a}`.replace
 
   if (interaction.customId === "madeira_cima"){
       await interaction.deferUpdate();
+
+    if (interaction.user.id !== this.author.id) return interaction.followUp({
+      content: `Espera um minuto... você não é ${this.author}! Sai daqui!`,
+      ephemeral: true
+    })
+    
     map = [
   {
     a: "0123456789"
@@ -661,7 +670,15 @@ mapa = `${map[0].a}\n${map[1].a}\n${map[2].a}\n${map[3].a}\n${map[4].a}`.replace
   }
 
    if (interaction.customId === "madeira_<"){
+     
   await interaction.deferUpdate();
+
+
+     if (interaction.user.id !== this.author.id) return interaction.followUp({
+      content: `Espera um minuto... você não é ${this.author}! Sai daqui!`,
+      ephemeral: true
+    })
+     
      p = p - 1;
 
        if (p < 0) p = 9;
