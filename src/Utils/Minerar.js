@@ -32,11 +32,15 @@ module.exports = class Minerar extends events {
     this.fundo = "⬛";
     
     this.carvao = {};
+    this.carvao.total = 0;
+    
     this.cobre = {};
+    this.cobre.total = 0;
+    
     this.ferro = {};
+    this.ferro.total = 0;
 
-
-  this.personagem = personagem;
+    this.personagem = personagem;
     
   }
 
@@ -67,8 +71,71 @@ module.exports = class Minerar extends events {
 
     this.embed.description = `${mapa[0].a}\n${mapa[1].a}\n${mapa[2].a}\n${mapa[3].a}\n${mapa[4].a}`.replace(this.player.name, this.personagem)
 
+    const botoes = new ActionRowBuilder()
+      .addComponents(
+        new ButtonBuilder()
+        .setEmoji("⬅️")
+        .setCustomId("minerar_<")
+        .setStyle(ButtonStyle.Primary),
+        new ButtonBuilder()
+        .setEmoji("⬆️")
+        .setCustomId("minerar_cima")
+        .setStyle(ButtonStyle.Primary),
+        new ButtonBuilder()
+        .setEmoji("⬇️")
+        .setCustomId("minerar_baixo")
+        .setStyle(ButtonStyle.Primary),
+        new ButtonBuilder()
+        .setEmoji("➡️")
+        .setCustomId("minerar_>")
+        .setStyle(ButtonStyle.Primary)
+      );
+
     this.message.reply({
-      embeds: [this.embed]
+      embeds: [this.embed],
+      components: [botoes]
     });
+
+   const collector = this.message.channel.createMessageComponentCollector({ time: ms("1h") });
+
+collector.on('collect', async i => {
+
+  if (i.customId === "minerar_baixo"){
+ 
+       await i.deferUpdate();
+
+    mapa = [{a: "0123456789"},{a: "0123456789"},{a: "0123456789"},{a: "0123456789"},{a: "0123456789"}];
+
+    this.player.y = this.player.y + 1;
+    if (this.player.y === 5) this.player.y = 0;
+
+mapa[this.player.y].a = mapa[this.player.y].a.replace(this.player.x, this.player.name);
+
+  for (let b = 0; b < 10; b++){
+
+    mapa[0].a = mapa[0].a.replace(b, this.fundo);
+    mapa[1].a = mapa[1].a.replace(b, this.fundo);
+    mapa[2].a = mapa[2].a.replace(b, this.fundo);
+    mapa[3].a = mapa[3].a.replace(b, this.fundo);
+    mapa[4].a = mapa[4].a.replace(b, this.fundo);
+
+       continue;
+   }
+
+    this.embed.description = `${mapa[0].a}\n${mapa[1].a}\n${mapa[2].a}\n${mapa[3].a}\n${mapa[4].a}`.replace(this.player.name, this.personagem);
+
+
+this.embed.footer.text = `X: ${this.player.x}, Y: ${this.player.y}`;
+
+   
+      i.editReply({
+          embeds: [this.embed]
+      });
+
+  } else if (i.customId === "minerar_cima") {
+    
+  }
+});
+
   }
 }
