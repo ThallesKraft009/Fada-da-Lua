@@ -133,7 +133,96 @@ this.embed.footer.text = `X: ${this.player.x}, Y: ${this.player.y}`;
       });
 
   } else if (i.customId === "minerar_cima") {
+    await i.deferUpdate();
+
+    mapa = [{a: "0123456789"},{a: "0123456789"},{a: "0123456789"},{a: "0123456789"},{a: "0123456789"}];
+
+    this.player.y = this.player.y - 1;
+    if (this.player.y < 0) this.player.y = 4;
+
+mapa[this.player.y].a = mapa[this.player.y].a.replace(this.player.x, this.player.name);
+
+
+for (let c = 0; c < 10; c++){
+
+    mapa[0].a = mapa[0].a.replace(c, this.fundo);
+    mapa[1].a = mapa[1].a.replace(c, this.fundo);
+    mapa[2].a = mapa[2].a.replace(c, this.fundo);
+    mapa[3].a = mapa[3].a.replace(c, this.fundo);
+    mapa[4].a = mapa[4].a.replace(c, this.fundo);
+
+       continue;
+   }
+
+    this.embed.description = `${mapa[0].a}\n${mapa[1].a}\n${mapa[2].a}\n${mapa[3].a}\n${mapa[4].a}`.replace(this.player.name, this.personagem);
+
+
+this.embed.footer.text = `X: ${this.player.x}, Y: ${this.player.y}`;
+
+    i.editReply({
+       embeds: [this.embed]
+      })
     
+  } else if (i.customId === "minerar_<"){
+
+    await i.deferUpdate();
+
+    mapa = [{a: "0123456789"},{a: "0123456789"},{a: "0123456789"},{a: "0123456789"},{a: "0123456789"}];
+
+    this.player.x = this.player.x - 1;
+    if (this.player.x < 0) this.player.x = 9;
+
+    mapa[this.player.y].a = mapa[this.player.y].a.replace(this.player.x, this.player.name);
+
+for (let d = 0; d< 10; d++){
+
+    mapa[0].a = mapa[0].a.replace(d, this.fundo);
+    mapa[1].a = mapa[1].a.replace(d, this.fundo);
+    mapa[2].a = mapa[2].a.replace(d, this.fundo);
+    mapa[3].a = mapa[3].a.replace(d, this.fundo);
+    mapa[4].a = mapa[4].a.replace(d, this.fundo);
+
+       continue;
+      }
+    
+this.embed.description = `${mapa[0].a}\n${mapa[1].a}\n${mapa[2].a}\n${mapa[3].a}\n${mapa[4].a}`.replace(this.player.name, this.personagem);
+
+
+this.embed.footer.text = `X: ${this.player.x}, Y: ${this.player.y}`;
+
+    i.editReply({
+       embeds: [this.embed]
+      })
+
+  } else if (i.customId === "minerar_>") {
+    await i.deferUpdate();
+
+    mapa = [{a: "0123456789"},{a: "0123456789"},{a: "0123456789"},{a: "0123456789"},{a: "0123456789"}];
+
+    this.player.x = this.player.x + 1;
+    if (this.player.x === 10) this.player.x = 0;
+
+    mapa[this.player.y].a = mapa[this.player.y].a.replace(this.player.x, this.player.name);
+
+for (let e = 0; e < 10; e++){
+
+    mapa[0].a = mapa[0].a.replace(e, this.fundo);
+    mapa[1].a = mapa[1].a.replace(e, this.fundo);
+    mapa[2].a = mapa[2].a.replace(e, this.fundo);
+    mapa[3].a = mapa[3].a.replace(e, this.fundo);
+    mapa[4].a = mapa[4].a.replace(e, this.fundo);
+
+       continue;
+      }
+    
+this.embed.description = `${mapa[0].a}\n${mapa[1].a}\n${mapa[2].a}\n${mapa[3].a}\n${mapa[4].a}`.replace(this.player.name, this.personagem);
+
+
+this.embed.footer.text = `X: ${this.player.x}, Y: ${this.player.y}`;
+
+    i.editReply({
+       embeds: [this.embed]
+      })
   }
 });
 
