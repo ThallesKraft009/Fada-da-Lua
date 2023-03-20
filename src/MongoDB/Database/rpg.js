@@ -18,7 +18,9 @@ const map = new Schema({
   },
 
   picaretas: {
-    pedra: { type: Number, default: 0 }
+    pedra: { type: Number, default: 0 },
+    cobre: { type: Number, default: 0 },
+    ferro: { type: Number, default: 0 }
   }
   
 })

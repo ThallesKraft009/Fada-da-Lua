@@ -1,5 +1,5 @@
 const events = require('events');
-const { EmbedBuilder, ButtonStyle, ActionRowBuilder, ButtonBuilder, StringSelectMenuBuilder } = require("discord.js");
+const { EmbedBuilder, ButtonStyle, ActionRowBuilder, ButtonBuilder, StringSelectMenuBuilder, ComponentType } = require("discord.js");
 const ms = require("ms");
 const minerio = require("../Json/minerio.js");
 const picaretas = require("../Json/picaretas.js");
@@ -105,7 +105,7 @@ module.exports = class Minerar extends events {
 
     console.log(`PLAYER.x: ${this.player.x} | PLAYER.y: ${this.player.y}\nCARVAO.x: ${this.carvao.x} | CARVAO.y: ${this.carvao.y}`)
 
-     this.carvao.total = this.carvao.total + 1;
+  //   this.carvao.total = this.carvao.total + 1;
  
 mapa[this.player.y].a = mapa[this.player.y].a.replace(this.player.x, this.player.name);
 
@@ -139,7 +139,7 @@ if (this.cobre.chance === true) {
   let select = new ActionRowBuilder()
     .addComponents(
       new StringSelectMenuBuilder()
-					.setCustomId('minerar_cmd')
+					.setCustomId('minerar_cmd_carvao')
 					.setPlaceholder('Selecione a Picareta')
 					.addOptions({
             label: "Pedra",
@@ -161,6 +161,147 @@ if (this.cobre.chance === true) {
           embeds: [this.embed],
           components: [select, this.botoes]
       });
+
+        /*
+        picaretas: {
+    pedra: { type: Number, default: 0 },
+    cobre: { type: Number, default: 0 },
+    ferro: { type: Number, default: 0 }
+  }
+        */
+                                                  
+let collector_select = this.message.channel.createMessageComponentCollector({ time: ms("1h") });
+
+collector_select.on('collect', async(interaction) => {
+
+  if (interaction.customId === "minerar_cmd_carvao"){
+
+    await interaction.deferUpdate();
+
+    let valor = interaction.values[0];
+
+    if (valor === `${picaretas.pedra}`){
+
+      let durabilidade = mundodb.picaretas.pedra
+
+      if (durabilidade <= 0) return interaction.followUp({
+        content: "Você não tem uma picareta de pedra!",
+        ephemeral: true
+      })
+
+this.carvao.x = Math.floor(Math.random() * 9);
+this.carvao.y = Math.floor(Math.random() * 4);
+
+      this.carvao.total = this.carvao.total + 1;
+
+mapa = [{a: "0123456789"},{a: "0123456789"},{a: "0123456789"},{a: "0123456789"},{a: "0123456789"}];
+
+      mapa[this.player.y].a = mapa[this.player.y].a.replace(this.player.x, this.player.name);
+
+mapa[this.carvao.y].a = mapa[this.carvao.y].a.replace(this.carvao.x, this.carvao.nome)
+
+if (this.cobre.chance === true) {
+     mapa[this.cobre.y].a = mapa[this.cobre.y].a.replace(this.cobre.x, this.cobre.nome);
+}
+
+    this.embed.description = `Carvões: ${this.carvao.total}\nCobres: ${this.cobre.total}\nFerro: ${this.ferro.total}\n\n${mapa[0].a}\n${mapa[1].a}\n${mapa[2].a}\n${mapa[3].a}\n${mapa[4].a}`.replace(this.player.name, this.personagem).replace(this.carvao.nome, this.carvao.emoji)
+
+        if (this.cobre.chance === true) {
+     this.embed.description = `${mapa[0].a}\n${mapa[1].a}\n${mapa[2].a}\n${mapa[3].a}\n${mapa[4].a}`.replace(this.player.name, this.personagem).replace(this.carvao.nome, this.carvao.emoji).replace(this.cobre.nome, this.cobre.emoji)
+        }
+
+      this.embed.footer.text = `X: ${this.player.x}, Y: ${this.player.y}`;
+
+      func(minerios.CARVAO, picaretas.pedra);
+
+      interaction.editReply({
+          embeds: [this.embed],
+          content: `${this.author} | Continue andando pra minerar os minérios!`,
+          components: [this.botoes]
+      });
+
+    } else if (valor === `${picaretas.cobre}`){
+
+  let durabilidade = mundodb.picaretas.cobre
+
+      if (durabilidade <= 0) return interaction.followUp({
+        content: "Você não tem uma picareta de cobre!",
+        ephemeral: true
+      })
+
+this.carvao.x = Math.floor(Math.random() * 9);
+this.carvao.y = Math.floor(Math.random() * 4);
+
+      this.carvao.total = this.carvao.total + 1;
+
+mapa = [{a: "0123456789"},{a: "0123456789"},{a: "0123456789"},{a: "0123456789"},{a: "0123456789"}];
+
+      mapa[this.player.y].a = mapa[this.player.y].a.replace(this.player.x, this.player.name);
+
+mapa[this.carvao.y].a = mapa[this.carvao.y].a.replace(this.carvao.x, this.carvao.nome)
+
+if (this.cobre.chance === true) {
+     mapa[this.cobre.y].a = mapa[this.cobre.y].a.replace(this.cobre.x, this.cobre.nome);
+}
+
+    this.embed.description = `Carvões: ${this.carvao.total}\nCobres: ${this.cobre.total}\nFerro: ${this.ferro.total}\n\n${mapa[0].a}\n${mapa[1].a}\n${mapa[2].a}\n${mapa[3].a}\n${mapa[4].a}`.replace(this.player.name, this.personagem).replace(this.carvao.nome, this.carvao.emoji)
+
+        if (this.cobre.chance === true) {
+     this.embed.description = `${mapa[0].a}\n${mapa[1].a}\n${mapa[2].a}\n${mapa[3].a}\n${mapa[4].a}`.replace(this.player.name, this.personagem).replace(this.carvao.nome, this.carvao.emoji).replace(this.cobre.nome, this.cobre.emoji)
+        }
+
+      this.embed.footer.text = `X: ${this.player.x}, Y: ${this.player.y}`;
+
+      func(minerios.CARVAO, picaretas.pedra);
+
+      interaction.editReply({
+          embeds: [this.embed],
+          content: `${this.author} | Continue andando pra minerar os minérios!`,
+          components: [this.botoes]
+      });
+      
+    } else if (valor === `${picaretas.ferro}`) {
+    let durabilidade = mundodb.picaretas.ferro
+
+      if (durabilidade <= 0) return interaction.followUp({
+        content: "Você não tem uma picareta de ferro!",
+        ephemeral: true
+      })
+
+this.carvao.x = Math.floor(Math.random() * 9);
+this.carvao.y = Math.floor(Math.random() * 4);
+
+      this.carvao.total = this.carvao.total + 1;
+
+mapa = [{a: "0123456789"},{a: "0123456789"},{a: "0123456789"},{a: "0123456789"},{a: "0123456789"}];
+
+      mapa[this.player.y].a = mapa[this.player.y].a.replace(this.player.x, this.player.name);
+
+mapa[this.carvao.y].a = mapa[this.carvao.y].a.replace(this.carvao.x, this.carvao.nome)
+
+if (this.cobre.chance === true) {
+     mapa[this.cobre.y].a = mapa[this.cobre.y].a.replace(this.cobre.x, this.cobre.nome);
+}
+
+    this.embed.description = `Carvões: ${this.carvao.total}\nCobres: ${this.cobre.total}\nFerro: ${this.ferro.total}\n\n${mapa[0].a}\n${mapa[1].a}\n${mapa[2].a}\n${mapa[3].a}\n${mapa[4].a}`.replace(this.player.name, this.personagem).replace(this.carvao.nome, this.carvao.emoji)
+
+        if (this.cobre.chance === true) {
+     this.embed.description = `${mapa[0].a}\n${mapa[1].a}\n${mapa[2].a}\n${mapa[3].a}\n${mapa[4].a}`.replace(this.player.name, this.personagem).replace(this.carvao.nome, this.carvao.emoji).replace(this.cobre.nome, this.cobre.emoji)
+        }
+
+      this.embed.footer.text = `X: ${this.player.x}, Y: ${this.player.y}`;
+
+      func(minerios.CARVAO, picaretas.pedra);
+
+      interaction.editReply({
+          embeds: [this.embed],
+          content: `${this.author} | Continue andando pra minerar os minérios!`,
+          components: [this.botoes]
+      });
+    }
+  }
+});
+
   }
 }
 
@@ -405,6 +546,5 @@ this.embed.footer.text = `X: ${this.player.x}, Y: ${this.player.y}`;
     }
   }
 });
-
   }
 }

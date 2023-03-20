@@ -24,8 +24,10 @@ module.exports = {
 
            console.clear()
 
-    Mineracao.start(async(minerio) => {
+    Mineracao.start(async(minerio, picareta) => {
       if (minerio === minerios.CARVAO){
+
+        console.log("minerou carvão!")
         
       } else if (minerio === minerios.COBRE){
         
