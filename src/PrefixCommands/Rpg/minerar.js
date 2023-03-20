@@ -1,4 +1,6 @@
 const Minerar = require("../../Utils/Minerar.js");
+const minerios = require("../../Json/minerio.js");
+const picaretas = require("../../Json/picaretas.js");
 
 module.exports = {
   name: "minerar",
@@ -20,6 +22,16 @@ module.exports = {
 
     const Mineracao = new Minerar(client, message, false, mundodb.personagem);
 
-    Mineracao.start()
+           console.clear()
+
+    Mineracao.start(async(minerio) => {
+      if (minerio === minerios.CARVAO){
+        
+      } else if (minerio === minerios.COBRE){
+        
+      } else if (minerio === minerios.FERRO){
+        
+      }
+    })
   }
 }

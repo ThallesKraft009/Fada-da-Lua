@@ -4,13 +4,6 @@ const db = new QuickDB();
 const ms = require("ms");
 const { Events } = require("discord.js");
 
-let i = 0;
-const min = 15;
-const max = 50;
-let number_random = Math.floor(Math.random() * (max - min + 1)) + min;
-const timerDuration = ms("50s");
-const tempo = {};
-
 client.on(Events.MessageReactionAdd, async(reaction, user) => {
 
   if (reaction.partial) {
@@ -65,8 +58,14 @@ client.on(Events.MessageReactionAdd, async(reaction, user) => {
   if (reaction.emoji.name === "ovo_pascoa_2") {
  
   if (msgdb.verificacao === false) return;
+    let a = await db.get(`ovo_${id}_${user.id}`);
+    if (a === true) return;
+
+    await db.set(`ovo_${id}_${user.id}`, true)
 
   console.log(user.tag, " Ganhou um ovo dourado!")
+
+   
 
   await client.userdb.updateOne({
          userID: user.id
@@ -81,6 +80,11 @@ client.on(Events.MessageReactionAdd, async(reaction, user) => {
 
       if (msgdb.verificacao === false) return;
 
+      let a = await db.get(`ovo_${id}_${user.id}`);
+    if (a === true) return;
+
+    await db.set(`ovo_${id}_${user.id}`, true)
+
   console.log(user.tag, " Ganhou um ovo verde!")
 
       await client.userdb.updateOne({
@@ -94,6 +98,11 @@ client.on(Events.MessageReactionAdd, async(reaction, user) => {
       if (reaction.emoji.name === "ovo_pascoa_1"){
 
         if (msgdb.verificacao === false) return;
+
+        let a = await db.get(`ovo_${id}_${user.id}`);
+    if (a === true) return;
+
+    await db.set(`ovo_${id}_${user.id}`, true)
     
 console.log(user.tag, " Ganhou um ovo azul!")
 
@@ -108,6 +117,11 @@ console.log(user.tag, " Ganhou um ovo azul!")
       if (reaction.emoji.name === "ovo_pascoa_4"){
 
         if (msgdb.verificacao === false) return;
+
+        let a = await db.get(`ovo_${id}_${user.id}`);
+    if (a === true) return;
+
+    await db.set(`ovo_${id}_${user.id}`, true)
           
         console.log("vermelho")
 console.log(user.tag, " Ganhou um ovo vermelho!")
@@ -116,13 +130,20 @@ console.log(user.tag, " Ganhou um ovo vermelho!")
          userID: user.id
      }, { $set: {
          "pascoa.ovo_vermelho": userdb.pascoa.ovo_vermelho + 1,
-          "pascoa.pontos": userdb.pascoa.pontos + 3
+          "pascoa.pontos": userdb.pascoa.pontos + 3 
      }
      })
 }
   
 })
 
+let i = 0;
+const min = 15;
+const max = 50;
+let number_random = Math.floor(Math.random() * (max - min + 1)) + min;
+const timerDuration = ms("50s");
+const tempo = {};
+  
 client.on("messageCreate", async(message) => {
 
   if(message.author.bot) return;

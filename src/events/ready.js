@@ -7,9 +7,15 @@ const ms = require("ms");
 client.on("ready", async () => {
   console.log(c.blue(`${client.user.username} está online!`));
 
-  const activities = [
-	{ name: `Mini world`, type: 0 }, 
+  let activities = [
+	{ name: `Shard 0 | Users: ${client.users.cache.size} | Guild: `, type: 0 }, 
 ];
+
+  setInterval(() => {
+  activities = [
+	{ name: `Shard 0 | Users: ${client.users.cache.size} | Guild: `, type: 0 }, 
+];
+  }, 50000)
   
 
 const status = [
