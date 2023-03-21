@@ -4,6 +4,8 @@ const ms = require("ms");
 const minerio = require("../Json/minerio.js");
 const picaretas = require("../Json/picaretas.js");
 
+const users = {};
+
 module.exports = class Minerar extends events {
   constructor(client, message, isSlash, personagem){
 
@@ -24,6 +26,10 @@ module.exports = class Minerar extends events {
 
     this.author = author;
     this.player = {};
+    this.player.x = 0;
+    this.player.y = 0;
+    this.player.name = "(PLAYER)";
+
     this.location = {};
     this.embed = {};
     this.embed.author = {};
@@ -35,19 +41,22 @@ module.exports = class Minerar extends events {
     
     this.carvao = {};
     this.carvao.total = 0;
-    this.carvao.emoji = "🍮";
+    this.carvao.emoji = "<:Carvao:1087777093225558066>";
     this.carvao.nome = "(CARVAO)";
     this.carvao.x = Math.floor(Math.random() * 9);
     this.carvao.y = Math.floor(Math.random() * 4);
     
     this.cobre = {};
     this.cobre.total = 0;
-    this.cobre.emoji = "🔶";
+    this.cobre.emoji = "<:Cobre:1087776496430624880>";
     this.cobre.nome = "(COBRE)";
-    this.cobre.chance = Math.floor(Math.random() * 10);
+    let chance = Math.floor(Math.random() * 10);
+    this.cobre.chance = false;
 
-      if (this.cobre.chance < 5) this.cobre.chance = true;
-      if (this.cobre.chance > 5) this.cobre.chance = false;
+      if (chance < 5) this.cobre.chance = true;
+      if (chance > 5) this.cobre.chance = false;
+
+
 
     this.cobre.x = Math.floor(Math.random() * 9);
     this.cobre.y = Math.floor(Math.random() * 4);
@@ -55,8 +64,28 @@ module.exports = class Minerar extends events {
     this.ferro = {};
     this.ferro.total = 0;
 
-    this.personagem = personagem;
+    this.ferro.chance = Math.floor(Math.random() * 20);
+if (this.ferro.chance < 10) this.ferro.chance = true;
+      if (this.ferro.chance > 10) this.ferro.chance = false;
 
+    this.ferro.x = Math.floor(Math.random() * 9);
+    this.ferro.y = Math.floor(Math.random() * 4);
+    this.ferro.emoji = "<:Ferro:1087776963684479016>";
+    this.ferro.nome = "(FERRO)";
+
+    this.personagem = personagem;
+  
+    this.collector = this.client.msgC[this.message.channel.id];
+    
+/*
+  if (!users[this.author.id]){
+
+    this.collector = this.message.channel.createMessageComponentCollector({ filter, time: ms("5m") });
+
+users[this.author.id] = this.collector;
+    
+  }*/
+      
     this.botoes = new ActionRowBuilder()
       .addComponents(
         new ButtonBuilder()
@@ -93,20 +122,15 @@ module.exports = class Minerar extends events {
      };
 
 ///================== CARVÃO ================///
+
+    let mapa = [{a: "0123456789"},{a: "0123456789"},{a: "0123456789"},{a: "0123456789"},{a: "0123456789"}];
       
       if (type === minerio.CARVAO){
-        
-           let mapa = [{a: "0123456789"},{a: "0123456789"},{a: "0123456789"},{a: "0123456789"},{a: "0123456789"}];
+      
+mapa = [{a: "0123456789"},{a: "0123456789"},{a: "0123456789"},{a: "0123456789"},{a: "0123456789"}];
 
 
-//this.carvao.x = Math.floor(Math.random() * 9);
-//this.carvao.y = Math.floor(Math.random() * 4);
 
-
-    console.log(`PLAYER.x: ${this.player.x} | PLAYER.y: ${this.player.y}\nCARVAO.x: ${this.carvao.x} | CARVAO.y: ${this.carvao.y}`)
-
-  //   this.carvao.total = this.carvao.total + 1;
- 
 mapa[this.player.y].a = mapa[this.player.y].a.replace(this.player.x, this.player.name);
 
 mapa[this.carvao.y].a = mapa[this.carvao.y].a.replace(this.carvao.x, this.carvao.nome)
@@ -154,14 +178,74 @@ if (this.cobre.chance === true) {
             description: "Use a Picareta de Ferro pra minerar",
             value: `${picaretas.ferro}`
           })
-    );
+    ); 
 
-      i.editReply({
+      i.update({
           content: "Selecione a Picareta pra Minerar o carvão",
           embeds: [this.embed],
           components: [select, this.botoes]
       });
+        
+        //================= COBRE =============//
+      } 
+    
+    if (type === minerio.COBRE){
 
+      
+        mapa = [{a: "0123456789"},{a: "0123456789"},{a: "0123456789"},{a: "0123456789"},{a: "0123456789"}];
+
+mapa[this.player.y].a = mapa[this.player.y].a.replace(this.player.x, this.player.name);
+
+mapa[this.carvao.y].a = mapa[this.carvao.y].a.replace(this.carvao.x, this.carvao.nome)
+
+mapa[this.cobre.y].a = mapa[this.cobre.y].a.replace(this.cobre.x, this.cobre.nome);
+
+
+for (let b = 0; b < 10; b++){
+
+    mapa[0].a = mapa[0].a.replace(b, this.fundo);
+    mapa[1].a = mapa[1].a.replace(b, this.fundo);
+    mapa[2].a = mapa[2].a.replace(b, this.fundo);
+    mapa[3].a = mapa[3].a.replace(b, this.fundo);
+    mapa[4].a = mapa[4].a.replace(b, this.fundo);
+
+       continue;
+}
+
+this.embed.footer.text = `X: ${this.player.x}, Y: ${this.player.y}`;
+
+this.embed.description = `${mapa[0].a}\n${mapa[1].a}\n${mapa[2].a}\n${mapa[3].a}\n${mapa[4].a}`.replace(this.player.name, this.personagem).replace(this.carvao.nome, this.carvao.emoji).replace(this.cobre.nome, this.cobre.emoji)
+
+
+  let select = new ActionRowBuilder()
+    .addComponents(
+      new StringSelectMenuBuilder()
+					.setCustomId('minerar_cmd_cobre')
+					.setPlaceholder('Selecione a Picareta')
+					.addOptions({
+            label: "Pedra",
+            description: "Use a Picareta de Pedra pra minerar",
+            value: `${picaretas.pedra}`
+          },{
+            label: "Cobre",
+            description: "Use a Picareta de Cobre pra minerar",
+            value: `${picaretas.cobre}`
+          },{
+            label: "Ferro",
+            description: "Use a Picareta de Ferro pra minerar",
+            value: `${picaretas.ferro}`
+          })
+    ); 
+
+    
+       i.update({
+          content: "Selecione a Picareta pra Minerar o Cobre",
+          embeds: [this.embed],
+          components: [select, this.botoes]
+      });
+       
+      }
+  }
         /*
         picaretas: {
     pedra: { type: Number, default: 0 },
@@ -169,14 +253,23 @@ if (this.cobre.chance === true) {
     ferro: { type: Number, default: 0 }
   }
         */
-                                                  
-let collector_select = this.message.channel.createMessageComponentCollector({ time: ms("1h") });
 
-collector_select.on('collect', async(interaction) => {
+async select_menu(interaction){
+
+  let mundodb = await this.client.mundodb.findOne({
+         userID: this.author.id
+     })
+      
+     if(!mundodb){
+         const newworld = new this.client.mundodb({ userID: this.author.id })
+         await newworld.save();
+         
+         mundodb = await this.client.mundodb.findOne({ userID: this.author.id })
+     };
+
+  /*===================== CARVAO =============*/
 
   if (interaction.customId === "minerar_cmd_carvao"){
-
-    await interaction.deferUpdate();
 
     let valor = interaction.values[0];
 
@@ -184,7 +277,7 @@ collector_select.on('collect', async(interaction) => {
 
       let durabilidade = mundodb.picaretas.pedra
 
-      if (durabilidade <= 0) return interaction.followUp({
+      if (durabilidade <= 0) return interaction.reply({
         content: "Você não tem uma picareta de pedra!",
         ephemeral: true
       })
@@ -194,7 +287,7 @@ this.carvao.y = Math.floor(Math.random() * 4);
 
       this.carvao.total = this.carvao.total + 1;
 
-mapa = [{a: "0123456789"},{a: "0123456789"},{a: "0123456789"},{a: "0123456789"},{a: "0123456789"}];
+let mapa = [{a: "0123456789"},{a: "0123456789"},{a: "0123456789"},{a: "0123456789"},{a: "0123456789"}];
 
       mapa[this.player.y].a = mapa[this.player.y].a.replace(this.player.x, this.player.name);
 
@@ -214,7 +307,7 @@ if (this.cobre.chance === true) {
 
       func(minerios.CARVAO, picaretas.pedra);
 
-      interaction.editReply({
+      interaction.update({
           embeds: [this.embed],
           content: `${this.author} | Continue andando pra minerar os minérios!`,
           components: [this.botoes]
@@ -224,7 +317,7 @@ if (this.cobre.chance === true) {
 
   let durabilidade = mundodb.picaretas.cobre
 
-      if (durabilidade <= 0) return interaction.followUp({
+      if (durabilidade <= 0) return interaction.reply({
         content: "Você não tem uma picareta de cobre!",
         ephemeral: true
       })
@@ -234,7 +327,7 @@ this.carvao.y = Math.floor(Math.random() * 4);
 
       this.carvao.total = this.carvao.total + 1;
 
-mapa = [{a: "0123456789"},{a: "0123456789"},{a: "0123456789"},{a: "0123456789"},{a: "0123456789"}];
+let mapa = [{a: "0123456789"},{a: "0123456789"},{a: "0123456789"},{a: "0123456789"},{a: "0123456789"}];
 
       mapa[this.player.y].a = mapa[this.player.y].a.replace(this.player.x, this.player.name);
 
@@ -254,7 +347,7 @@ if (this.cobre.chance === true) {
 
       func(minerios.CARVAO, picaretas.pedra);
 
-      interaction.editReply({
+      interaction.update({
           embeds: [this.embed],
           content: `${this.author} | Continue andando pra minerar os minérios!`,
           components: [this.botoes]
@@ -263,7 +356,7 @@ if (this.cobre.chance === true) {
     } else if (valor === `${picaretas.ferro}`) {
     let durabilidade = mundodb.picaretas.ferro
 
-      if (durabilidade <= 0) return interaction.followUp({
+      if (durabilidade <= 0) return interaction.reply({
         content: "Você não tem uma picareta de ferro!",
         ephemeral: true
       })
@@ -293,26 +386,90 @@ if (this.cobre.chance === true) {
 
       func(minerios.CARVAO, picaretas.pedra);
 
-      interaction.editReply({
+      interaction.update({
           embeds: [this.embed],
           content: `${this.author} | Continue andando pra minerar os minérios!`,
           components: [this.botoes]
       });
     }
-  }
-});
+    /*=============== COBRE ==============*/
+  } else if (interaction.customId === ""){
 
-  }
+
+
+   }
 }
 
-  start(func){
+ async start(func){
 
-    this.player.x = 0;
-    this.player.y = 0;
-    this.player.name = "(PLAYER)";
+    
     this.location.x = 0;
     this.location.y = 0;
 
+       this.player = {};
+    this.player.x = 0;
+    this.player.y = 0;
+    this.player.name = "(PLAYER)";
+
+    this.location = {};
+    this.embed = {};
+    this.embed.author = {};
+    this.embed.footer = {};
+    this.embed.author.name = `${this.author.tag}`;
+    this.embed.author.iconURL = `${this.author.displayAvatarURL()}`; 
+    
+    this.fundo = "⬛";
+    
+    this.carvao = {};
+    this.carvao.total = 0;
+    this.carvao.emoji = "<:Carvao:1087777093225558066>";
+    this.carvao.nome = "(CARVAO)";
+    this.carvao.x = Math.floor(Math.random() * 9);
+    this.carvao.y = Math.floor(Math.random() * 4);
+    
+    this.cobre = {};
+    this.cobre.total = 0;
+    this.cobre.emoji = "<:Cobre:1087776496430624880>";
+    this.cobre.nome = "(COBRE)";
+    let chance = Math.floor(Math.random() * 10);
+    this.cobre.chance = false;
+
+      if (chance < 5) this.cobre.chance = true;
+      if (chance > 5) this.cobre.chance = false;
+
+
+
+    this.cobre.x = Math.floor(Math.random() * 9);
+    this.cobre.y = Math.floor(Math.random() * 4);
+
+    this.ferro = {};
+    this.ferro.total = 0;
+
+    this.ferro.chance = Math.floor(Math.random() * 20);
+if (this.ferro.chance < 10) this.ferro.chance = true;
+      if (this.ferro.chance > 10) this.ferro.chance = false;
+
+   
+
+    this.ferro.x = Math.floor(Math.random() * 9);
+    this.ferro.y = Math.floor(Math.random() * 4);
+    this.ferro.emoji = "<:Ferro:1087776963684479016>";
+   this.ferro.nome = "(FERRO)";
+
+console.log(this.ferro, this.cobre, this.carvao, this.player)
+
+
+    this.personagem = this.personagem;
+    this.message = this.message;
+  
+    this.collector = this.client.msgC[this.message.channel.id];
+
+   this.collector.stop()
+   this.client.msgC[this.message.channel.id] = this.message.channel.createMessageComponentCollector();
+
+   this.collector = this.client.msgC[this.message.channel.id];
+
+  
     this.embed.footer.text = `X: ${this.player.x}, Y: ${this.player.y}`;
 
     let mapa = [{a: "0123456789"},{a: "0123456789"},{a: "0123456789"},{a: "0123456789"},{a: "0123456789"}];
@@ -323,6 +480,10 @@ if (this.cobre.chance === true) {
     
   if (this.cobre.chance === true) {
      mapa[this.cobre.y].a = mapa[this.cobre.y].a.replace(this.cobre.x, this.cobre.nome);
+   }
+
+   if (this.ferro.chance === true) {
+     mapa[this.ferro.y].a = mapa[this.ferro.y].a.replace(this.ferro.x, this.ferro.nome);
    }
     
    for (let a = 0; a < 10; a++){
@@ -342,22 +503,30 @@ if (this.cobre.chance === true) {
      this.embed.description = this.embed.description.replace(this.cobre.nome, this.cobre.emoji)
 }
 
+  if (this.ferro.chance === true) {
+     this.embed.description = this.embed.description.replace(this.ferro.nome, this.ferro.emoji)
+      }
+
     this.message.reply({
       content: `${this.author} | Continue andando pra minerar os minérios!`,
       embeds: [this.embed],
       components: [this.botoes]
     });
 
-   const collector = this.message.channel.createMessageComponentCollector({ time: ms("1h") });
+   
 
-collector.on('collect', async i => {
+ this.collector.on("collect", async(i) => {
+      
+   
+this.select_menu(i)
 
   if (i.customId === "minerar_baixo"){
+
+mapa = [{a: "0123456789"},{a: "0123456789"},{a: "0123456789"},{a: "0123456789"},{a: "0123456789"}];
+
+    console.log(mapa)
+console.log(this.player)
  
-       await i.deferUpdate();
-
-    mapa = [{a: "0123456789"},{a: "0123456789"},{a: "0123456789"},{a: "0123456789"},{a: "0123456789"}];
-
     this.player.y = this.player.y + 1;
     if (this.player.y === 5) this.player.y = 0;
 
@@ -369,16 +538,42 @@ collector.on('collect', async i => {
 
 mapa[this.player.y].a = mapa[this.player.y].a.replace(this.player.x, this.player.name);
 
+      console.log("ok")
+
       mapa[this.carvao.y].a = mapa[this.carvao.y].a.replace(this.carvao.x, this.carvao.nome)
+
+console.log("ok")
 
       if (this.cobre.chance === true) {
      mapa[this.cobre.y].a = mapa[this.cobre.y].a.replace(this.cobre.x, this.cobre.nome);
+
+console.log(mapa)
+
+
+        if (this.player.x === this.cobre.x && this.player.y === this.cobre.y){
+
+      this.collision(minerio.COBRE, i, func);
+
+          return;
+        }
+      }
+
+      if (this.ferro.chance === true) {
+     mapa[this.ferro.y].a = mapa[this.ferro.y].a.replace(this.ferro.x, this.ferro.nome);
+
+
+
+        if (this.player.x === this.ferro.x && this.player.y === this.ferro.y){
+
+      this.collision(minerio.FERRO, i, func);
+
+          return;
+        }
       }
 
   for (let b = 0; b < 10; b++){
-
-    mapa[0].a = mapa[0].a.replace(b, this.fundo);
-    mapa[1].a = mapa[1].a.replace(b, this.fundo);
+mapa[0].a = mapa[0].a.replace(b, this.fundo);
+mapa[1].a = mapa[1].a.replace(b, this.fundo);
     mapa[2].a = mapa[2].a.replace(b, this.fundo);
     mapa[3].a = mapa[3].a.replace(b, this.fundo);
     mapa[4].a = mapa[4].a.replace(b, this.fundo);
@@ -392,18 +587,21 @@ if (this.cobre.chance === true) {
      this.embed.description = this.embed.description.replace(this.cobre.nome, this.cobre.emoji)
 }
 
+      if (this.ferro.chance === true) {
+     this.embed.description = this.embed.description.replace(this.ferro.nome, this.ferro.emoji)
+      }
       
 this.embed.footer.text = `X: ${this.player.x}, Y: ${this.player.y}`;
 
    
-      i.editReply({
+      i.update({
           embeds: [this.embed],
           content: `${this.author} | Continue andando pra minerar os minérios!`,
           components: [this.botoes]
       });
     }
   } else if (i.customId === "minerar_cima") {
-    await i.deferUpdate();
+
 
     mapa = [{a: "0123456789"},{a: "0123456789"},{a: "0123456789"},{a: "0123456789"},{a: "0123456789"}];
 
@@ -412,7 +610,9 @@ this.embed.footer.text = `X: ${this.player.x}, Y: ${this.player.y}`;
 
     if (this.player.x === this.carvao.x && this.player.y === this.carvao.y){
 
-      this.collision(minerio.CARVAO, i, func);
+      this.collision(minerio.CARVAO, this.message, func);
+
+    
 
     } else {
 
@@ -422,6 +622,27 @@ mapa[this.player.y].a = mapa[this.player.y].a.replace(this.player.x, this.player
 
       if (this.cobre.chance === true) {
      mapa[this.cobre.y].a = mapa[this.cobre.y].a.replace(this.cobre.x, this.cobre.nome);
+
+        if (this.player.x === this.cobre.x && this.player.y === this.cobre.y){
+
+      this.collision(minerio.COBRE, i, func);
+
+  return;
+
+        }
+      }
+
+      if (this.ferro.chance === true) {
+     mapa[this.ferro.y].a = mapa[this.ferro.y].a.replace(this.ferro.x, this.ferro.nome);
+
+
+
+        if (this.player.x === this.ferro.x && this.player.y === this.ferro.y){
+
+      this.collision(minerio.FERRO, i, func);
+
+          return;
+        }
       }
 
 for (let c = 0; c < 10; c++){
@@ -441,17 +662,19 @@ for (let c = 0; c < 10; c++){
      this.embed.description = this.embed.description.replace(this.cobre.nome, this.cobre.emoji)
 }
 
+      if (this.ferro.chance === true) {
+     this.embed.description = this.embed.description.replace(this.ferro.nome, this.ferro.emoji)
+      }
+
 this.embed.footer.text = `X: ${this.player.x}, Y: ${this.player.y}`;
 
-    i.editReply({
+    i.update({
        embeds: [this.embed],
        content: `${this.author} | Continue andando pra minerar os minérios!`,
        components: [this.botoes]
       })
     }
   } else if (i.customId === "minerar_<"){
-
-    await i.deferUpdate();
 
     mapa = [{a: "0123456789"},{a: "0123456789"},{a: "0123456789"},{a: "0123456789"},{a: "0123456789"}];
 
@@ -470,6 +693,27 @@ this.embed.footer.text = `X: ${this.player.x}, Y: ${this.player.y}`;
 
       if (this.cobre.chance === true) {
      mapa[this.cobre.y].a = mapa[this.cobre.y].a.replace(this.cobre.x, this.cobre.nome);
+
+        if (this.player.x === this.cobre.x && this.player.y === this.cobre.y){
+
+      this.collision(minerio.COBRE, this.message, func);
+
+          return;
+
+        }
+      }
+
+      if (this.ferro.chance === true) {
+     mapa[this.ferro.y].a = mapa[this.ferro.y].a.replace(this.ferro.x, this.ferro.nome);
+
+
+
+        if (this.player.x === this.ferro.x && this.player.y === this.ferro.y){
+
+      this.collision(minerio.FERRO, i, func);
+
+          return;
+        }
       }
 
 for (let d = 0; d< 10; d++){
@@ -488,17 +732,22 @@ this.embed.description = `Carvões: ${this.carvao.total}\nCobres: ${this.cobre.t
 if (this.cobre.chance === true) {
      this.embed.description = this.embed.description.replace(this.cobre.nome, this.cobre.emoji)
 }
+
+      if (this.ferro.chance === true) {
+     this.embed.description = this.embed.description.replace(this.ferro.nome, this.ferro.emoji)
+      }
+
+  
       
 this.embed.footer.text = `X: ${this.player.x}, Y: ${this.player.y}`;
 
-    i.editReply({
+    i.update({
        embeds: [this.embed],
        content: `${this.author} | Continue andando pra minerar os minérios!`,
        components: [this.botoes]
       })
     }
   } else if (i.customId === "minerar_>") {
-    await i.deferUpdate();
 
     mapa = [{a: "0123456789"},{a: "0123456789"},{a: "0123456789"},{a: "0123456789"},{a: "0123456789"}];
 
@@ -517,6 +766,27 @@ this.embed.footer.text = `X: ${this.player.x}, Y: ${this.player.y}`;
 
       if (this.cobre.chance === true) {
      mapa[this.cobre.y].a = mapa[this.cobre.y].a.replace(this.cobre.x, this.cobre.nome);
+
+        if (this.player.x === this.cobre.x && this.player.y === this.cobre.y){
+
+      this.collision(minerio.COBRE, this.message, func);
+
+          return;
+
+        }
+      }
+
+      if (this.ferro.chance === true) {
+     mapa[this.ferro.y].a = mapa[this.ferro.y].a.replace(this.ferro.x, this.ferro.nome);
+
+
+
+        if (this.player.x === this.ferro.x && this.player.y === this.ferro.y){
+
+      this.collision(minerio.FERRO, i, func);
+
+          return;
+        }
       }
 
 for (let e = 0; e < 10; e++){
@@ -535,16 +805,20 @@ this.embed.description = `Carvões: ${this.carvao.total}\nCobres: ${this.cobre.t
 if (this.cobre.chance === true) {
      this.embed.description = this.embed.description.replace(this.cobre.nome, this.cobre.emoji)
 }
+
+      if (this.ferro.chance === true) {
+     this.embed.description = this.embed.description.replace(this.ferro.nome, this.ferro.emoji)
+      }
       
 this.embed.footer.text = `X: ${this.player.x}, Y: ${this.player.y}`;
 
-    i.editReply({
+    i.update({
        embeds: [this.embed],
        content: `${this.author} | Continue andando pra minerar os minérios!`,
        components: [this.botoes]
       })
     }
   }
-});
-  }
+                   })
+             }
 }

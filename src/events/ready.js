@@ -41,4 +41,21 @@ setInterval(() => {
 	s++;
 }, 30 * 1000); 
 
+client.msgC = {};
+  
+client.channels.cache.forEach(channel => {
+
+  
+
+  if (channel.type === 0 || channel.type === "0"){
+
+  client.msgC[channel.id] = {};
+
+
+  client.msgC[channel.id] = channel.createMessageComponentCollector();
+
+    console.log(channel.name, " ok ");
+    
+  }
+})
 })

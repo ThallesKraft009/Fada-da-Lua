@@ -1,6 +1,13 @@
 const { ApplicationCommandOptionType, PermissionsBitField, EmbedBuilder } = require("discord.js");
 const client = require("../bot.js");
 const fada = client;
+const Minerar = require("../Utils/Minerar.js");
+
+const m = async(i, p) => {
+  return new Minerar(client, i, true, p);
+}
+
+const users = {};
 
 client.on("interactionCreate", async(interaction) => {
 
@@ -19,6 +26,18 @@ if (interaction.isChatInputCommand()){
   };
 
   /* ======= rank estrelas ======== */
+
+  let rpg = await client.mundodb.findOne({
+         userID: interaction.user.id
+     })
+      
+     if(!rpg){
+         const newworld = new client.mundodb({ userID: interaction.user.id })
+         await newworld.save();
+         
+         rpg = await client.mundodb.findOne({ userID: interaction.user.id })
+     };
+
 
   if (interaction.isButton()){
 
@@ -45,4 +64,26 @@ if (interaction.customId === "rank_estrelinhas"){
        })
     }
   }
+
+  /*if (!users[interaction.user.id]){
+
+   users[interaction.user.id] = new Minerar(client, interaction, true, rpg.personagem);
+    
+  users[interaction.user.id].select_menu(rpg, interaction)
+  users[interaction.user.id].movimentation()
+    
+                              
+  if (interaction.customId === `minerar_${interaction.user.id}`){
+      
+  users[interaction.user.id].start();
+
+  }
+
+    } else {
+
+
+users[interaction.user.id].select_menu(rpg, interaction)
+  users[interaction.user.id].movimentation()
+    
+    }*/
 });

@@ -2,6 +2,9 @@ const Minerar = require("../../Utils/Minerar.js");
 const minerios = require("../../Json/minerio.js");
 const picaretas = require("../../Json/picaretas.js");
 
+const { ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
+
+
 module.exports = {
   name: "minerar",
 
@@ -20,6 +23,16 @@ module.exports = {
          mundodb = await client.mundodb.findOne({ userID: author.id })
      };
 
+   // const collector = message.channel.createMessageComponentCollector();
+
+    let botao = new ActionRowBuilder()
+    .addComponents(
+      new ButtonBuilder()
+      .setLabel("Inicie a Mineração")
+      .setCustomId(`minerar_${message.author.id}`)
+      .setStyle(ButtonStyle.Success)
+    );
+
     const Mineracao = new Minerar(client, message, false, mundodb.personagem);
 
            console.clear()
@@ -35,5 +48,6 @@ module.exports = {
         
       }
     })
+
   }
 }
