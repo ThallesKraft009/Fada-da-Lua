@@ -1,0 +1,8 @@
+[
+    {
+      "name": "Weather.Changed",
+      "id": "world_1",
+      "description": "Quando o clima muda",
+      "parm": "Nenhum"
+    }
+  ]

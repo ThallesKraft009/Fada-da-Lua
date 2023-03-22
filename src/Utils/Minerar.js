@@ -138,6 +138,10 @@ mapa[this.carvao.y].a = mapa[this.carvao.y].a.replace(this.carvao.x, this.carvao
 if (this.cobre.chance === true) {
      mapa[this.cobre.y].a = mapa[this.cobre.y].a.replace(this.cobre.x, this.cobre.nome);
 }
+
+        if (this.ferro.chance === true) {
+     mapa[this.ferro.y].a = mapa[this.ferro.y].a.replace(this.ferro.x, this.ferro.nome);
+        }
         
     for (let a = 0; a < 10; a++){
 
@@ -157,6 +161,11 @@ if (this.cobre.chance === true) {
         if (this.cobre.chance === true) {
      this.embed.description = `${mapa[0].a}\n${mapa[1].a}\n${mapa[2].a}\n${mapa[3].a}\n${mapa[4].a}`.replace(this.player.name, this.personagem).replace(this.carvao.nome, this.carvao.emoji).replace(this.cobre.nome, this.cobre.emoji)
         }
+
+        if (this.ferro.chance === true) {
+ this.embed.description = this.embed.description.replace(this.ferro.nome, this.ferro.emoji)
+        }
+        
 
       this.embed.footer.text = `X: ${this.player.x}, Y: ${this.player.y}`;
 
@@ -244,6 +253,60 @@ this.embed.description = `${mapa[0].a}\n${mapa[1].a}\n${mapa[2].a}\n${mapa[3].a}
           components: [select, this.botoes]
       });
        
+      } else if (type === minerio.FERRO){
+
+      mapa = [{a: "0123456789"},{a: "0123456789"},{a: "0123456789"},{a: "0123456789"},{a: "0123456789"}];
+
+
+
+mapa[this.player.y].a = mapa[this.player.y].a.replace(this.player.x, this.player.name);
+
+mapa[this.carvao.y].a = mapa[this.carvao.y].a.replace(this.carvao.x, this.carvao.nome)
+
+if (this.cobre.chance === true) {
+     mapa[this.cobre.y].a = mapa[this.cobre.y].a.replace(this.cobre.x, this.cobre.nome);
+}
+
+      for (let c = 0; c < 10; c++){
+
+    mapa[0].a = mapa[0].a.replace(c, this.fundo);
+    mapa[1].a = mapa[1].a.replace(c, this.fundo);
+    mapa[2].a = mapa[2].a.replace(c, this.fundo);
+    mapa[3].a = mapa[3].a.replace(c, this.fundo);
+    mapa[4].a = mapa[4].a.replace(c, this.fundo);
+
+       continue;
+}
+
+this.embed.footer.text = `X: ${this.player.x}, Y: ${this.player.y}`;
+
+this.embed.description = `${mapa[0].a}\n${mapa[1].a}\n${mapa[2].a}\n${mapa[3].a}\n${mapa[4].a}`.replace(this.player.name, this.personagem).replace(this.carvao.nome, this.carvao.emoji).replace(this.cobre.nome, this.cobre.emoji).replace(this.ferro.nome, this.ferro.emoji)
+
+      
+  let select = new ActionRowBuilder()
+    .addComponents(
+      new StringSelectMenuBuilder()
+					.setCustomId('minerar_cmd_ferro')
+					.setPlaceholder('Selecione a Picareta')
+					.addOptions({
+            label: "Cobre",
+            description: "Use a Picareta de Cobre pra minerar",
+            value: `${picaretas.cobre}`
+          },{
+            label: "Ferro",
+            description: "Use a Picareta de Ferro pra minerar",
+            value: `${picaretas.ferro}`
+          })
+    ); 
+
+    
+       i.update({
+          content: "Selecione a Picareta pra Minerar o Ferro",
+          embeds: [this.embed],
+          components: [select, this.botoes]
+      });
+
+      
       }
   }
         /*
@@ -297,6 +360,17 @@ if (this.cobre.chance === true) {
      mapa[this.cobre.y].a = mapa[this.cobre.y].a.replace(this.cobre.x, this.cobre.nome);
 }
 
+for (let g = 0; g < 10; g++){
+
+mapa[0].a = mapa[0].a.replace(g, this.fundo);
+    mapa[1].a = mapa[1].a.replace(g, this.fundo);
+    mapa[2].a = mapa[2].a.replace(g, this.fundo);
+    mapa[3].a = mapa[3].a.replace(g, this.fundo);
+    mapa[4].a = mapa[4].a.replace(g, this.fundo);
+        
+        continue;
+}
+
     this.embed.description = `Carvões: ${this.carvao.total}\nCobres: ${this.cobre.total}\nFerro: ${this.ferro.total}\n\n${mapa[0].a}\n${mapa[1].a}\n${mapa[2].a}\n${mapa[3].a}\n${mapa[4].a}`.replace(this.player.name, this.personagem).replace(this.carvao.nome, this.carvao.emoji)
 
         if (this.cobre.chance === true) {
@@ -335,6 +409,17 @@ mapa[this.carvao.y].a = mapa[this.carvao.y].a.replace(this.carvao.x, this.carvao
 
 if (this.cobre.chance === true) {
      mapa[this.cobre.y].a = mapa[this.cobre.y].a.replace(this.cobre.x, this.cobre.nome);
+}
+
+for (let g = 0; g < 10; g++){
+
+mapa[0].a = mapa[0].a.replace(g, this.fundo);
+    mapa[1].a = mapa[1].a.replace(g, this.fundo);
+    mapa[2].a = mapa[2].a.replace(g, this.fundo);
+    mapa[3].a = mapa[3].a.replace(g, this.fundo);
+    mapa[4].a = mapa[4].a.replace(g, this.fundo);
+        
+        continue;
 }
 
     this.embed.description = `Carvões: ${this.carvao.total}\nCobres: ${this.cobre.total}\nFerro: ${this.ferro.total}\n\n${mapa[0].a}\n${mapa[1].a}\n${mapa[2].a}\n${mapa[3].a}\n${mapa[4].a}`.replace(this.player.name, this.personagem).replace(this.carvao.nome, this.carvao.emoji)
@@ -376,6 +461,17 @@ if (this.cobre.chance === true) {
      mapa[this.cobre.y].a = mapa[this.cobre.y].a.replace(this.cobre.x, this.cobre.nome);
 }
 
+      for (let g = 0; g < 10; g++){
+
+mapa[0].a = mapa[0].a.replace(g, this.fundo);
+    mapa[1].a = mapa[1].a.replace(g, this.fundo);
+    mapa[2].a = mapa[2].a.replace(g, this.fundo);
+    mapa[3].a = mapa[3].a.replace(g, this.fundo);
+    mapa[4].a = mapa[4].a.replace(g, this.fundo);
+        
+        continue;
+      }
+
     this.embed.description = `Carvões: ${this.carvao.total}\nCobres: ${this.cobre.total}\nFerro: ${this.ferro.total}\n\n${mapa[0].a}\n${mapa[1].a}\n${mapa[2].a}\n${mapa[3].a}\n${mapa[4].a}`.replace(this.player.name, this.personagem).replace(this.carvao.nome, this.carvao.emoji)
 
         if (this.cobre.chance === true) {
@@ -395,8 +491,54 @@ if (this.cobre.chance === true) {
     /*=============== COBRE ==============*/
   } else if (interaction.customId === ""){
 
+      let valor = interaction.values[0];
+
+    if (valor === `${picaretas.pedra}`){
+
+      let durabilidade = mundodb.picaretas.pedra
+
+      if (durabilidade <= 0) return interaction.reply({
+        content: "Você não tem uma picareta de pedra!",
+        ephemeral: true
+      })
+
+this.cobre.x = Math.floor(Math.random() * 9);
+this.cobre.y = Math.floor(Math.random() * 4);
+
+      this.cobre.total = this.cobre.total + 1;
+
+let mapa = [{a: "0123456789"},{a: "0123456789"},{a: "0123456789"},{a: "0123456789"},{a: "0123456789"}];
+
+      mapa[this.player.y].a = mapa[this.player.y].a.replace(this.player.x, this.player.name);
+
+mapa[this.carvao.y].a = mapa[this.carvao.y].a.replace(this.carvao.x, this.carvao.nome)
 
 
+     mapa[this.cobre.y].a = mapa[this.cobre.y].a.replace(this.cobre.x, this.cobre.nome);
+
+for (let g = 0; g < 10; g++){
+
+mapa[0].a = mapa[0].a.replace(g, this.fundo);
+    mapa[1].a = mapa[1].a.replace(g, this.fundo);
+    mapa[2].a = mapa[2].a.replace(g, this.fundo);
+    mapa[3].a = mapa[3].a.replace(g, this.fundo);
+    mapa[4].a = mapa[4].a.replace(g, this.fundo);
+        
+        continue;
+}
+
+    this.embed.description = `Carvões: ${this.carvao.total}\nCobres: ${this.cobre.total}\nFerro: ${this.ferro.total}\n\n${mapa[0].a}\n${mapa[1].a}\n${mapa[2].a}\n${mapa[3].a}\n${mapa[4].a}`.replace(this.player.name, this.personagem).replace(this.carvao.nome, this.carvao.emoji).replace(this.cobre.nome, this.cobre.emoji).replace(this.ferro.nome, this.ferro.emoji);
+
+      this.embed.footer.text = `X: ${this.player.x}, Y: ${this.player.y}`;
+
+      func(minerios.COBRE, picaretas.pedra);
+
+      interaction.update({
+          embeds: [this.embed],
+          content: `${this.author} | Continue andando pra minerar os minérios!`,
+          components: [this.botoes]
+      });
+    }
    }
 }
 
@@ -449,6 +591,7 @@ if (this.cobre.chance === true) {
 if (this.ferro.chance < 10) this.ferro.chance = true;
       if (this.ferro.chance > 10) this.ferro.chance = false;
 
+this.ferro.chance = true;
    
 
     this.ferro.x = Math.floor(Math.random() * 9);

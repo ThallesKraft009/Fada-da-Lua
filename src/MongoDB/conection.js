@@ -6,7 +6,7 @@ module.exports = (client) => {
 const conectar = async() => {
 
     await connect(client.config.mongo).then(() => {
-      console.log(c.blue("[INFO]: Ready MongoDB ✅"));
+      console.log(c.blue("[INFO]: Ready MongoDB ✅\n"));
     })
 };
 
