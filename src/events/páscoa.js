@@ -140,10 +140,13 @@ console.log(user.tag, " Ganhou um ovo vermelho!")
 let i = 0;
 const min = 15;
 const max = 50;
-let number_random = Math.floor(Math.random() * (max - min + 1)) + min;
+let number_random;
 const timerDuration = ms("50s");
 const tempo = {};
-  
+
+number_random = Math.floor(Math.random() * (max - min + 1)) + min;
+
+
 client.on("messageCreate", async(message) => {
 
   if(message.author.bot) return;
@@ -155,6 +158,7 @@ client.on("messageCreate", async(message) => {
     i = i + 1;
 
   
+  
 
 let emoji;
   if (number_random < 50) emoji = "<:ovo_pascoa_2:1087078981020438640>";
@@ -162,7 +166,7 @@ let emoji;
   if (number_random < 30) emoji = "<:ovo_pascoa_3:1087078854151114752>";
   if (number_random < 20) emoji = "<:ovo_pascoa_1:1087078709699301518>"; // azul
 
-  console.log(`i: ${i}, number_random: ${number_random}`)
+  
 
   if (i === number_random) {
 

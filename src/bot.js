@@ -7,6 +7,7 @@ const {
 const fs = require("fs");
 const express = require("express");
 
+require("./Json/Perguntas/perguntas.js");
 
 const EventEmitter = require('events');
 const emitter = new EventEmitter()
