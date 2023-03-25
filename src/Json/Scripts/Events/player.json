@@ -1,0 +1,46 @@
+[{
+  "name": "Player.AddBuff",
+  "id": "player_1",
+  "description": "Quando o jogador ganha um efeito de status.",
+  "param": "**eventobjid**, **buffid**, **bufflvl**"
+},{
+  "name": "Player.AddItem",
+  "id": "player_2",
+  "description": "Quando o jogador adiciona um novo item em seu inventário.",
+  "param": "**eventobjid**, **toobjid**, **itemid**, **itemnum**"
+},{
+  "name": "Player.AreaIn",
+  "id": "player_3",
+  "description": "Quando o jogador entra em uma área.",
+  "param": "**eventobjid**, **areaid**"
+},{
+  "name": "Player.AreaOut",
+  "id": "player_4",
+  "description": "Quando o jogador sai de uma área",
+  "param": "**eventobjid**, **areaid**"
+},{
+  "name": "Player.Attack",
+  "id": "player_5",
+  "description": "Quando o jogador está atacando",
+  "param": "**eventobjid**, **toobjid**"
+},{
+  "name": "Player.AttackHit",
+  "id": "player_6",
+  "description": "Quando o jogador acerta o outro jogador",
+  "param": "**eventobjid**, **toobjid*,"
+},{
+  "name": "Player.BackPackChange",
+  "id": "player_7",
+  "description": "Quando o jogador altera o local do item no inventário",
+  "param": "**eventobjid**, **toobjid**, **itemid**, **itemnum**"
+},{
+  "name": "Player.BeHurt",
+  "id": "player_8",
+  "description": "Quando o jogador recebe dano",
+  "param": "**eventobjid**, **toobjid**, **hurtlv**"
+},{
+  "name": "Player.ChangeAttr",
+  "id": "player_9",
+  "description": "Quando o atributo do jogador muda",
+  "param": "**eventobjid**, **toobjid**"
+}]

@@ -3,6 +3,8 @@ events.world = require("../../Json/Scripts/Events/world.json");
 
 events.logic = require("../../Json/Scripts/Events/logic.json");
 
+events.player = require("../../Json/Scripts/Events/player.json");
+
 let choices = [];
 
 events.logic.map(x => {
@@ -15,6 +17,15 @@ events.logic.map(x => {
   choices.push(a)
   
 });
+
+events.player.map(x => {
+  let b = {
+    name: x.name,
+    value: x.id
+  };
+
+  choices.push(b)
+})
 
 const { EmbedBuilder } = require("discord.js");
 
@@ -53,7 +64,19 @@ let evento = interaction.options.getString("nome");
 
       let dados = events.logic.filter((x) => x.id === evento);
 
-        console.log(dados[0])
+      interaction.reply({
+        embeds: [
+          new EmbedBuilder()
+          .setAuthor({name: `${user.tag}`, iconURL: `${user.displayAvatarURL()}`})
+          .setTitle(`**${dados[0].name}**`)
+          .setDescription(`${dados[0].description}\n\nParâmetros: ${dados[0].param}`)
+          .setColor("Random")
+        ]
+       })
+      
+    } else if (evento.startsWith("player")) {
+
+            let dados = events.player.filter((x) => x.id === evento);
 
       interaction.reply({
         embeds: [
@@ -65,9 +88,7 @@ let evento = interaction.options.getString("nome");
         ]
        })
       
-    } //else if () {
-      
-   // } else if () {
+    }// else if () {
       
     //}
   }

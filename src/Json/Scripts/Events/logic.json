@@ -1,7 +1,7 @@
 [{
       "name": "Game.AnyPlayer.Defeat",
       "id": "logic_1",
-      "description": "Quando um jogador é derrotado",
+      "description": "Quando um jogador é derrotado.",
       "param": "eventobjid, toobjid"
     },{
       "name": "Game.AnyPlayer.EnterGame",
@@ -11,22 +11,22 @@
     },{
       "name": "Game.AnyPlayer.LeaveGame",
       "id": "logic_3",
-      "description": "Quando um jogador sai do jogo",
+      "description": "Quando um jogador sai do jogo.",
       "param": "eventobjid, toobjid"
     },{
       "name": "Game.AnyPlayer.ReadStage",
       "id": "logic_4",
-      "description": "Quando o jogador carrega o jogo",
+      "description": "Quando o jogador carrega o jogo.",
       "param": "Nenhum"
 },{
   "name": "Game.AnyPlayer.Victory",
   "id": "logic_5",
-  "description": "Quando um player ganha",
+  "description": "Quando um jogador ganha a partida ou o jogo.",
   "param": "eventobjid, toobjid"
 },{
   "name": "Game.End",
   "id": "logic_6",
-  "description": "Quando o jogo acaba",
+  "description": "Quando o jogo encerra.",
   "param": "Nenhum"
 },{
   "name": "Game.Load",
@@ -36,16 +36,16 @@
 },{
   "name": "Game.Run",
   "id": "logic_8",
-  "description": "Quando o jogo está ocorrendo",
+  "description": "Quando o jogo está ocorrendo.",
   "param": "Nenhum"
 },{
   "name": "Game.Start",
   "id": "logic_9",
-  "description": "Quando o jogo é Iniciado",
+  "description": "Quando o jogo é Iniciado.",
   "param": ""
 },{
   "name": "Game.TimeOver",
   "id": "logic_10",
-  "description": "Quando o jogo acaba pelo tempo",
+  "description": "Quando o jogo acaba pelo tempo.",
   "param": "Nenhum"
 }]
