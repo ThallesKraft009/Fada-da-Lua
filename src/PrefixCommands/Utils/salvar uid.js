@@ -28,6 +28,13 @@ module.exports = {
          "uid": uid
      }
      }).then(async() => {
+
+client.channels.cache.get(`${client.chat.uid}`)
+       .send({
+         content: `**\`${message.author.tag}\`** salvou seu uid pra: ${uid}`
+       })
+
+       
        await message.reply({
          content: `Seu uid foi salvo pra: **\`${uid}\`**.`
        })

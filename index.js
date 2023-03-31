@@ -13,3 +13,9 @@ manager.on('shardCreate', async(shard) => {
 module.exports = manager;
 
 manager.spawn();
+
+
+
+process.on('uncaughtException', function (err) {
+  console.error(err);
+});

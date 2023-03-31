@@ -42,9 +42,9 @@ msgID: { type: String },
        let embed_estrutura = new EmbedBuilder()
         .setColor("Yellow")
         .setAuthor({ name: `${msg.author.tag}`, iconURL: `  ${msg.author.displayAvatarURL({ format: 'png' })}`})
-    .setDescription(`${msg.content}`)
+    .setDescription(msg.content || null)
 
-       
+  
 
        let img = msg.attachments;
 
@@ -62,14 +62,15 @@ let chat_estrelinhas = client.chat.estrelinhas;
          userdb = await client.userdb.findOne({ userID: msg.author.id })
      }
 
-
+if (msg.author.id !== reagiu.id){
        await client.userdb.updateOne({
          userID: msg.author.id
      }, { $set: {
          "estrelas": userdb.estrelas + 1
      }
      })
-
+  
+}
        
 
 const enviar_rank = async function(channel){
@@ -107,9 +108,16 @@ await db.set("msg_id_rank_e", `${msg_rank.id}`);
     })
   }
 }
-       
+       let v = img.map(x => {
+         if (!x.length) return false;
 
-       if (!img.length) {
+         return true;
+       })
+
+       console.log(v)
+
+       if (v.length === 0 || v.length < 0) {
+console.log("Sem imagem")
 
          embed.push(embed_estrutura);
 
@@ -131,9 +139,17 @@ await db.set("msg_id_rank_e", `${msg_rank.id}`);
      })
 
        } else {
-         img = img.attachments;
+         console.log("Com imagem")
+        img = msg.attachments;
 
-         embed_estrutura.image.url = img;
+         //console.log(img)
+         
+      // embed_estrutura.image = {};
+         
+
+       embed_estrutura.setImage(`${img.map(x => x.url)}`);
+         
+         //console.log(embed_estrutura)
          embed.push(embed_estrutura)
 
          let msg_star = await chat_estrelinhas.send({
@@ -144,6 +160,7 @@ await db.set("msg_id_rank_e", `${msg_rank.id}`);
 
 enviar_rank(chat_estrelinhas);
 
+        
 
     await client.msg.updateOne({
          msgID: msg.id

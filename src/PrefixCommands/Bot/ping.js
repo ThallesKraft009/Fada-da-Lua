@@ -34,8 +34,7 @@ console.clear()
     );
 
     msg.edit({
-      content: `Pong! 🏓\nGateway Ping: **\`${gateway}ms\`**\nApi Ping: **\`${apiPing}ms\`**`,
-      components: [botao]
+      content: `Pong! 🏓\nGateway Ping: **\`${gateway}ms\`**\nApi Ping: **\`${apiPing}ms\`**`
     })
 
     

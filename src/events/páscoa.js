@@ -17,6 +17,8 @@ client.on(Events.MessageReactionAdd, async(reaction, user) => {
 
   let id = reaction.message.id;
 
+  if (user.id === client.user.id) return;
+
   let msgdb = await client.pascoa_db.findOne({
          id: id
      })

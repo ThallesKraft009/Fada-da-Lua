@@ -20,7 +20,7 @@ client.on(Events.MessageReactionAdd, async(reaction, user) => {
   
   if (reaction.emoji.name === "⭐"){
 
-    atualizar_msg(client, reaction.message);
+    atualizar_msg(client, reaction.message, user);
     
   }
 })

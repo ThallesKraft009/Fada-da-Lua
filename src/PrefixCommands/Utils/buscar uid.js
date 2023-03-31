@@ -4,11 +4,16 @@ module.exports = {
 
    run: async(client, message, args) => {
 
-     let membro = client.users.cache.get(message.mentions.members.first().id) || client.users.cache.get(args[0]);
+     let membro;
+    if (!message.mentions.members.first()) {
+      membro = client.users.cache.get(args[0]);
+    } else {
+      membro = message.mentions.users.first();
+    }
 
-      if (!membro) return message.reply({
-        content: `Mencione um membro ou insira o id apos o comando, exemplo: **\`mw!buscar uid @membro\`**`
-      })
+  if (!membro) return message.reply({
+    content: `:x: | Mencione alguém ou insira o ID do membro.`
+  })
 
      const user = membro;
 

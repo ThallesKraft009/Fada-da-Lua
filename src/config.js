@@ -4,5 +4,6 @@ module.exports = {
   mongo: process.env.mongo,
   openai: process.env.openai,
   organization: process.env.org,
-  channels: {}
+  channels: {},
+  version: "20.1.0"
 };

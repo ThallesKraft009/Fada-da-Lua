@@ -7,6 +7,11 @@ const conectar = async() => {
 
     await connect(client.config.mongo).then(() => {
       console.log(c.blue("[INFO]: Ready MongoDB ✅\n"));
+
+  client.channels.cache.get("1089533673163997224")
+      .send({
+        content: "MongoDb conectado com sucesso."
+      })
     })
 };
 

@@ -1,19 +1,18 @@
 const { PermissionsBitField, EmbedBuilder } = require("discord.js");
 
 module.exports = {
-  name: "banir",
-  aliases: ["ban"],
+  name: "unban",
+  aliases: ["desbanir"],
 
   run: async(client, message, args) => {
     let { guild, author } = message;
  author = guild.members.cache.get(`${author.id}`)
 
 if (!author.permissions.has([PermissionsBitField.Flags.BanMembers])) return message.reply({
-  content: `Você não tem permissão de **\`Banir Membros\`** pra usar esss comando.`
+  content: `Você não tem permissão de **\`desbanir Membros\`** pra usar esse comando.`
 });
 
-      //  if (!args[0])
-let user;
+    let user;
     if (!message.mentions.members.first()) {
       user = client.users.cache.get(args[0]);
     } else {
@@ -24,29 +23,29 @@ let user;
     content: `:x: | Mencione alguém ou insira o ID do membro.`
   })
 
-    
     const membro = user;
+    
+
     //console.log(user)
 
-    let motivo = args.slice(1).join(' ') || "Bagunçou tanto que levou uma martelada do ban";
+    let motivo = args.slice(1).join(' ') || "Algum membro da staff teve piedade dele e agora o membro voltou pro servidor! :D";
 
     const embed = new EmbedBuilder()
-    .setColor("Red")
-    .setTitle(`Parece que alguém levou uma chinelada👡`)
-    .setDescription(`**🎣| Banido(a):** ${membro.tag}
+    .setColor("Green")
+    .setTitle(`Parece que alguém voltou!😎`)
+    .setDescription(`**🎣| desbanido(a):** ${membro.tag}
 **🛠️| Staff:** ${message.author.tag} \n**📋| Motivo:** ${motivo}`)
     .setAuthor({ name: `${message.author.tag}🔨⭐`, iconURL: `${message.author.displayAvatarURL()}`})
     .setTimestamp()
     .setFooter({ text: `ID do Membro: ${membro.id} `})
     .setThumbnail(`${membro.displayAvatarURL()}`)
-  .setImage("https://media.discordapp.net/attachments/911729113801293845/1089548137133256764/B_A_N_I_D_O_1280x720_378Mbps_2020-11-21_11-31-11.gif")
+  .setImage("https://media1.tenor.com/images/2677049cf82f768bca4d862bd0dade2e/tenor.gif")
     message.delete()
-
-  //================ Mensagem de confirmação
     
-    const msg = await message.channel.send({
-      content: `${author} | Você quer realmente banir **\`${membro.tag}\`**?`
+   let msg = await message.channel.send({
+      content: `${author} | Você quer realmente desbanir **\`${membro.tag}\`**?`
     })
+
     msg.react("✅");
     msg.react("❌");
 
@@ -66,7 +65,7 @@ collector.on('collect', async(reaction, user) => {
     await msg.reactions.removeAll();
     
     msg.edit({
-      content: `${author} o usuário**\`${membro.tag}\`** foi banido.`
+      content: `${author} o usuário**\`${membro.tag}\`** foi desbanido.`
     });
 
     let mural = client.channels.cache.get(`${client.chat.mural}`);
@@ -76,9 +75,9 @@ collector.on('collect', async(reaction, user) => {
     })
   
     
-    await guild.members.ban(membro, { reason: motivo }).catch(e => {
+    await guild.members.unban(membro, { reason: motivo }).catch(e => {
   msg.edit({
-    content: `${author} | Não foi possível banir **\`${membro.tag}\`**\n\`\`\`js\n${e}\n\`\`\``
+    content: `${author} | Não foi possível desbanir **\`${membro.tag}\`**\n\`\`\`js\n${e}\n\`\`\``
   })
 
       msg_mural.delete();

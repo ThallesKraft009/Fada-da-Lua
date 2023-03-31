@@ -1,18 +1,17 @@
 const { PermissionsBitField, EmbedBuilder } = require("discord.js");
 
 module.exports = {
-  name: "banir",
-  aliases: ["ban"],
+  name: "kick",
+  aliases: ["expulsar"],
 
   run: async(client, message, args) => {
     let { guild, author } = message;
  author = guild.members.cache.get(`${author.id}`)
 
-if (!author.permissions.has([PermissionsBitField.Flags.BanMembers])) return message.reply({
-  content: `Você não tem permissão de **\`Banir Membros\`** pra usar esss comando.`
+if (!author.permissions.has([PermissionsBitField.Flags.KickMembers])) return message.reply({
+  content: `Você não tem permissão de **\`Expulsar Membros\`** pra usar esss comando.`
 });
 
-      //  if (!args[0])
 let user;
     if (!message.mentions.members.first()) {
       user = client.users.cache.get(args[0]);
@@ -25,28 +24,29 @@ let user;
   })
 
     
+    
     const membro = user;
+    
+
     //console.log(user)
 
-    let motivo = args.slice(1).join(' ') || "Bagunçou tanto que levou uma martelada do ban";
+    let motivo = args.slice(1).join(' ') || "Bagunçou demais e levou um chute para fora do servidor";
 
     const embed = new EmbedBuilder()
-    .setColor("Red")
-    .setTitle(`Parece que alguém levou uma chinelada👡`)
-    .setDescription(`**🎣| Banido(a):** ${membro.tag}
+    .setColor("Yellow")
+    .setTitle(`Parece que alguém foi expulso💃`)
+    .setDescription(`**🎣| Expulso(a):** ${membro.tag}
 **🛠️| Staff:** ${message.author.tag} \n**📋| Motivo:** ${motivo}`)
     .setAuthor({ name: `${message.author.tag}🔨⭐`, iconURL: `${message.author.displayAvatarURL()}`})
     .setTimestamp()
     .setFooter({ text: `ID do Membro: ${membro.id} `})
     .setThumbnail(`${membro.displayAvatarURL()}`)
-  .setImage("https://media.discordapp.net/attachments/911729113801293845/1089548137133256764/B_A_N_I_D_O_1280x720_378Mbps_2020-11-21_11-31-11.gif")
     message.delete()
-
-  //================ Mensagem de confirmação
     
-    const msg = await message.channel.send({
-      content: `${author} | Você quer realmente banir **\`${membro.tag}\`**?`
-    })
+   let msg = await message.channel.send({
+      content: `${author} | Você quer realmente expulsar **\`${membro.tag}\`**?`
+   })
+    
     msg.react("✅");
     msg.react("❌");
 
@@ -57,8 +57,8 @@ let user;
 const collector = msg.createReactionCollector({ filter, time: 60000 });
 
 collector.on('collect', async(reaction, user) => {
-  if (user.id !== message.author.id) return;
-
+if (user.id !== message.author.id) return;
+  
   if (reaction.emoji.name === "✅"){
 
   //  await msg.delete();
@@ -66,7 +66,7 @@ collector.on('collect', async(reaction, user) => {
     await msg.reactions.removeAll();
     
     msg.edit({
-      content: `${author} o usuário**\`${membro.tag}\`** foi banido.`
+      content: `${author} o usuário**\`${membro.tag}\`** foi expulso.`
     });
 
     let mural = client.channels.cache.get(`${client.chat.mural}`);
@@ -76,9 +76,9 @@ collector.on('collect', async(reaction, user) => {
     })
   
     
-    await guild.members.ban(membro, { reason: motivo }).catch(e => {
+    await guild.members.kick(membro, { reason: motivo }).catch(e => {
   msg.edit({
-    content: `${author} | Não foi possível banir **\`${membro.tag}\`**\n\`\`\`js\n${e}\n\`\`\``
+    content: `${author} | Não foi possível expulsar **\`${membro.tag}\`**\n\`\`\`js\n${e}\n\`\`\``
   })
 
       msg_mural.delete();

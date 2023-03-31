@@ -47,6 +47,11 @@ let comando = interaction.options.getSubcommand()
      }
      })
 
+      client.channels.cache.get(`${client.chat.uid}`)
+       .send({
+         content: `**\`${user.tag}\`** salvou seu uid pra: ${uid}`
+       })
+
       interaction.reply({
         content: `Seu uid foi salvo pra **\`${uid}\`**`,
         ephemeral: true

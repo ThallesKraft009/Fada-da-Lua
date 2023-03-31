@@ -49,14 +49,14 @@ if (interaction.customId === "rank_estrelinhas"){
       
   userdb.sort((a,b) => (b.estrelas + b.estrelas) - (a.estrelas + a.estrelas))
       
-      userdb = userdb.slice(0, 10);
+      userdb = userdb.slice(0, 15);
 
         let embed = new EmbedBuilder()
            .setAuthor({ name: "Rank de estrelinhas", iconURL: `${interaction.user.displayAvatarURL()}` })
-          .setDescription(`${userdb.map((user, i) => `#${i+1} | **${client.users.cache.get(user.userID) || `sumido#0000`}** (⭐ ${user.estrelas})`).join("\n ")}`)
+          .setDescription(`${userdb.map((user, i) => `#${i+1} | **${client.users.cache.get(user.userID) || `sumido#0000`}** (⭐ ${user.estrelas})`).join("\n")}`)
            .setColor("Yellow")
            .setTimestamp()
-           .setFooter({ text: `Top 10 Usuários`})
+           .setFooter({ text: `Top 15 Usuários`})
 
       let msg = await interaction.reply({
          embeds: [embed],

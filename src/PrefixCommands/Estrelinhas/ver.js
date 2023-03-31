@@ -28,7 +28,7 @@ module.exports = {
     } else {
       
       message.reply({
-        content: `🌟 | **\`${user.username}\`** tem ${userdb.estrelas} estrelinhas!`
+        content: `🌟 | **\`${user.tag}\`** tem ${userdb.estrelas} estrelinhas!`
       })
     }
  }

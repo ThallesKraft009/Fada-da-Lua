@@ -15,7 +15,7 @@ client.on('messageCreate', async message => {
 	if(!command) command = client.prefixo.get(client.aliases.get(cmd));
 
 if (!command) return message.reply({
-  content: `O comando mw!${command} não existe.`
+  content: `O comando mw!${message.content} não existe.`
 })
 
 command.run(client, message, args)
