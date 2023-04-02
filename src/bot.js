@@ -7,6 +7,14 @@ const {
 const fs = require("fs");
 const express = require("express");
 
+const app = express();
+app.get("/", async(req, res) => {
+
+                   console.log("ping recebido")
+  res.json({ ok: "OK"})
+})
+
+
 //require("./Json/Perguntas/perguntas.js");
 
 const EventEmitter = require('events');
@@ -75,3 +83,5 @@ client.categories =  fs.readdirSync("./src/SlashCommands/");
 
 
 client.login(token);
+
+     app.listen(process.env.PORT)

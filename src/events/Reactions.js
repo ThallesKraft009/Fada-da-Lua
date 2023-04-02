@@ -14,8 +14,8 @@ client.on(Events.MessageReactionAdd, async(reaction, user) => {
 		}
   };
 
- /* if (reaction.message.author.bot) return;
-  if (user.bot) return;
+ if (reaction.message.author.bot) return;
+  if (user.bot) return;/*
   if (reaction.message.author === user) return;*/
   
   if (reaction.emoji.name === "⭐"){

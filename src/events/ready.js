@@ -3,12 +3,11 @@ const c = require("colors");
 const { EmbedBuilder, version } = require("discord.js");
 const ms = require("ms");
 
-
-
 client.on("ready", async () => {
 
 const logs = client.channels.cache.get("1089533673163997224")
 
+  
  logs.send({
     content: "```js\n\"Shard [0] conectada.\"\n```"
   })

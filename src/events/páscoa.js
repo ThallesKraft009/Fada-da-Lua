@@ -154,6 +154,10 @@ client.on("messageCreate", async(message) => {
   if(message.author.bot) return;
 	if(message.channel.type !== 0) return;
 
+ //let g = await db.get("verificar_evento");
+//if (!g || g === null || g === false) return;
+ // console.log("Mensagem recebida.")
+
   //client.pascoa_db
   const { author, id } = message;
     
@@ -168,7 +172,7 @@ let emoji;
   if (number_random < 30) emoji = "<:ovo_pascoa_3:1087078854151114752>";
   if (number_random < 20) emoji = "<:ovo_pascoa_1:1087078709699301518>"; // azul
 
-  
+
 
   if (i === number_random) {
 
