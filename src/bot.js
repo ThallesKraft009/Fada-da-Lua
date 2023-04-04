@@ -84,4 +84,4 @@ client.categories =  fs.readdirSync("./src/SlashCommands/");
 
 client.login(token);
 
-     app.listen(process.env.PORT)
+   //  app.listen(process.env.PORT)

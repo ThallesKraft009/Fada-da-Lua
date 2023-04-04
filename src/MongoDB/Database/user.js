@@ -19,7 +19,8 @@ const userset = new Schema({
     ovo_vermelho: { type: Number, default: 0 },
     ovo_verde: { type: Number, default: 0 },
     ovo_dourado: { type: Number, default: 0 },
-    pontos: { type: Number, default: 0 }
+    pontos: { type: Number, default: 0 },
+    time: { type: Number, default: 0 }
   },
   
   moedas: {

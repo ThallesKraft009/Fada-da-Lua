@@ -1,4 +1,6 @@
 const client = require("../bot.js");
+const {PermissionsBitField} = require("discord.js")
+
 
 let prefix = "mw!";
 
@@ -16,6 +18,21 @@ client.on('messageCreate', async message => {
 
 if (!command) return;
 
-command.run(client, message, args)
+let channel = client.channels.cache.get("751536507218690178")
+
+if (channel.id !== message.channel.id){
+
+    let guildMember = message.guild.members.cache.get(`${message.author.id}`);
+  
+  if (!guildMember.permissions.has([PermissionsBitField.Flags.ManageMessages])) {
+    return message.reply({
+  content: `Hey! Você só pode utilizar meus comandos no chat <#751536507218690178>!`
+})
+  } else {
+    return command.run(client, message, args)
+  }
+}
+
+return command.run(client, message, args)
 
 })

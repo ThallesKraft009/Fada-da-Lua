@@ -15,7 +15,9 @@ client.on(Events.MessageReactionAdd, async(reaction, user) => {
   };
 
  if (reaction.message.author.bot) return;
-  if (user.bot) return;/*
+if (user.bot) return;
+ // if (reaction.channel.id === "767888039552352297") return;
+  /*
   if (reaction.message.author === user) return;*/
   
   if (reaction.emoji.name === "⭐"){

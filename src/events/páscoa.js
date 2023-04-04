@@ -2,7 +2,17 @@ const client = require("../bot.js");
 const { QuickDB } = require("quick.db");
 const db = new QuickDB();
 const ms = require("ms");
-const { Events } = require("discord.js");
+const { Events, EmbedBuilder } = require("discord.js");
+const users = [];
+/*
+
+let Channel_log = client.channels.cache.get("1092561724227461160")
+
+    Channel_log.send({
+      
+    })
+
+*/
 
 client.on(Events.MessageReactionAdd, async(reaction, user) => {
 
@@ -57,9 +67,32 @@ client.on(Events.MessageReactionAdd, async(reaction, user) => {
   },
            */
 
+  let hm = users[user.id];
+
+
   if (reaction.emoji.name === "ovo_pascoa_2") {
  
   if (msgdb.verificacao === false) return;
+
+        if (!hm) {
+
+let member = client.users.cache.get(`${user.id}`);
+
+    if (user.bot) return;
+
+let Channel_log = client.channels.cache.get("1092561724227461160")
+
+    Channel_log.send({
+      content: `${user.tag} tentou resgatar um ovo`
+    })
+
+    member.send({
+      content: `:x: | Opa! Você está sem mandar uma mensagem há mais de 5 minutos, com isso você não resgatou o ovo de páscoa.`
+    })
+
+    return console.log(user.tag, " tentou pegar um ovo!")
+        }
+    
     let a = await db.get(`ovo_${id}_${user.id}`);
     if (a === true) return;
 
@@ -67,6 +100,11 @@ client.on(Events.MessageReactionAdd, async(reaction, user) => {
 
   console.log(user.tag, " Ganhou um ovo dourado!")
 
+    let Channel_log = client.channels.cache.get("1092561724227461160")
+
+    Channel_log.send({
+      content: `${user.tag} resgatou um ovo`
+    })
    
 
   await client.userdb.updateOne({
@@ -82,12 +120,37 @@ client.on(Events.MessageReactionAdd, async(reaction, user) => {
 
       if (msgdb.verificacao === false) return;
 
+        if (!hm) {
+
+let member = client.users.cache.get(`${user.id}`);
+
+    if (user.bot) return;
+
+let Channel_log = client.channels.cache.get("1092561724227461160")
+
+    Channel_log.send({
+      content: `${user.tag} tentou resgatar um ovo`
+    })
+
+    member.send({
+      content: `:x: | Opa! Você está sem mandar uma mensagem há mais de 5 minutos, com isso você não resgatou o ovo de páscoa.`
+    })
+
+    return console.log(user.tag, " tentou pegar um ovo!")
+        }
+
       let a = await db.get(`ovo_${id}_${user.id}`);
     if (a === true) return;
 
     await db.set(`ovo_${id}_${user.id}`, true)
 
   console.log(user.tag, " Ganhou um ovo verde!")
+
+      let Channel_log = client.channels.cache.get("1092561724227461160")
+
+    Channel_log.send({
+      content: `${user.tag} resgatou um ovo`
+    })
 
       await client.userdb.updateOne({
          userID: user.id
@@ -100,6 +163,25 @@ client.on(Events.MessageReactionAdd, async(reaction, user) => {
       if (reaction.emoji.name === "ovo_pascoa_1"){
 
         if (msgdb.verificacao === false) return;
+
+          if (!hm) {
+
+let member = client.users.cache.get(`${user.id}`);
+
+    if (user.bot) return;
+
+let Channel_log = client.channels.cache.get("1092561724227461160")
+
+    Channel_log.send({
+      content: `${user.tag} tentou resgatar um ovo`
+    })
+
+    member.send({
+      content: `:x: | Opa! Você está sem mandar uma mensagem há mais de 5 minutos, com isso você não resgatou o ovo de páscoa.`
+    })
+
+    return console.log(user.tag, " tentou pegar um ovo!")
+          }
 
         let a = await db.get(`ovo_${id}_${user.id}`);
     if (a === true) return;
@@ -120,6 +202,25 @@ console.log(user.tag, " Ganhou um ovo azul!")
 
         if (msgdb.verificacao === false) return;
 
+                    if (!hm) {
+
+let member = client.users.cache.get(`${user.id}`);
+
+    if (user.bot) return;
+
+let Channel_log = client.channels.cache.get("1092561724227461160")
+
+    Channel_log.send({
+      content: `${user.tag} tentou resgatar um ovo`
+    })
+
+    member.send({
+      content: `:x: | Opa! Você está sem mandar uma mensagem há mais de 5 minutos, com isso você não resgatou o ovo de páscoa.`
+    })
+
+    return console.log(user.tag, " tentou pegar um ovo!")
+  }
+
         let a = await db.get(`ovo_${id}_${user.id}`);
     if (a === true) return;
 
@@ -127,6 +228,12 @@ console.log(user.tag, " Ganhou um ovo azul!")
           
         console.log("vermelho")
 console.log(user.tag, " Ganhou um ovo vermelho!")
+
+      let Channel_log = client.channels.cache.get("1092561724227461160")
+
+    Channel_log.send({
+      content: `${user.tag} resgatou um ovo`
+    })
 
         await client.userdb.updateOne({
          userID: user.id
@@ -160,10 +267,17 @@ client.on("messageCreate", async(message) => {
 
   //client.pascoa_db
   const { author, id } = message;
+
+  users[author.id] = {};
+  users[author.id] = setTimeout(() => {
+
+    users[author.id] = undefined;
+    console.log("End: ", author.tag)
+    
+  }, ms("5m"))
     
     i = i + 1;
 
-  
   
 
 let emoji;
@@ -173,6 +287,11 @@ let emoji;
   if (number_random < 20) emoji = "<:ovo_pascoa_1:1087078709699301518>"; // azul
 
 
+  users[author.id] = setTimeout(() => {
+
+    users[author.id] = undefined;
+    
+  }, ms("5m"))
 
   if (i === number_random) {
 

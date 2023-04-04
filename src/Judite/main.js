@@ -70,8 +70,9 @@ classifier.addDocument("Reage a minha mensagem", "Não posso reagir a sua mensag
 
 
 classifier.addDocument("Qual é seu ping atual?", "Meu ping atual é (getPing)ms!")
-/** 
-classifier.addDocument("", "")
+
+classifier.addDocument("me avise quando estiver on", "Estou online!")
+/*%
 classifier.addDocument("", "")
 classifier.addDocument("", "")
 **/
